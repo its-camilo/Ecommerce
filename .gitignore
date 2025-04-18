@@ -1,0 +1,83 @@
+# =========================
+# Sistema operativo
+# =========================
+# Mac
+.DS_Store
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# =========================
+# Dependencias y paquetes
+# =========================
+# Node
+node_modules/
+package-lock.json
+yarn.lock
+.pnpm-debug.log
+npm-debug.log
+yarn-error.log
+
+# =========================
+# Variables de entorno
+# =========================
+.env
+.env.*.local
+
+# =========================
+# React Native
+# =========================
+# Build outputs
+android/app/build/
+android/.gradle/
+ios/build/
+# SDK config generado localmente
+android/local.properties
+# CocoaPods
+ios/Pods/
+# Xcode
+*.xcworkspace
+*.xcodeproj/project.xcworkspace/
+xcuserdata/
+# Metro Bundler cache
+.metro/
+# Gradle wrapper
+.gradle/
+# Bundler caches
+*.keystore
+
+# =========================
+# Strapi
+# =========================
+# Carpeta de build del panel de administración
+/build/
+/.svelte-kit/       # si usas Svelte en custom admin
+.cache/             # caché interna de Strapi
+.tmp/               # caché temporal
+# Archivos de subida (opcional: ignora si no quieres trackear binarios)
+public/uploads/
+
+# =========================
+# IDEs / Editores
+# =========================
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+*.code-workspace
+
+# =========================
+# Logs
+# =========================
+logs/
+*.log
+
+# =========================
+# Otros artefactos
+# =========================
+# Mapas de fuente
+*.map
+# Artefactos de prueba
+coverage/
+*.lcov

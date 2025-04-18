@@ -1,0 +1,22 @@
+{
+    "kind": "collectionType",
+    "collectionName": "demos",
+    "info": {
+        "singularName": "demo",
+        "pluralName": "demos",
+        "displayName": "demo"
+    },
+    "options": {
+        "draftAndPublish": true
+    },
+    "attributes": {
+        "title": {
+            "type": "string"
+        },
+        "user": {
+            "type": "relation",
+            "relation": "oneToOne",
+            "target": "plugin::users-permissions.user"
+        }
+    }
+}
