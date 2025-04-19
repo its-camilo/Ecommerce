@@ -1,0 +1,24 @@
+import { View, Image, KeyboardAvoidingView, Platform } from 'react-native'
+import {useState} from "react";
+import { styles } from './AuthScreen.styles'
+import { RegisterForm, LoginForm } from '../../../components/Auth'
+import logo from '../../../../assets/images/logo.png'
+
+export function AuthScreen() {
+  const [showLogin, setShowLogin] = useState(false)
+
+  const onShowLoginRegister = () => setShowLogin((prevState) => !prevState);
+  return (
+    <View style={styles.container}>
+      <Image
+        source={logo}
+        style={styles.logo}
+        />
+      <KeyboardAvoidingView
+      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+      >
+        {showLogin ? (<LoginForm/>) : (<RegisterForm showLogin={onShowLoginRegister} />)}
+      </KeyboardAvoidingView>
+    </View>
+  )
+}
