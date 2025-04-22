@@ -5,9 +5,12 @@ import Toast from "react-native-root-toast"
 import {globalStyles} from "../../../styles"
 import {initialValues, validationSchema} from "./LoginForm.form"
 import {authCtrl} from "../../../api/auth"
+import {useAuth} from "../../../hooks"
 
 export function LoginForm(props) {
   const {showRegister} = props;
+  const {login} = useAuth();
+  //console.log("useAuthData", useAuthData)
 
   const formik = useFormik({
     initialValues: initialValues(),
@@ -19,8 +22,9 @@ export function LoginForm(props) {
     onSubmit: async (formValue) => {
       try {
         const {email, password} = formValue;
-        await authCtrl.login(email, password)
-        // showLogin()
+        const response = await authCtrl.login(email, password)
+
+        login(response.jwt)
       } catch (error) {
         Toast.show("Usuario o contraseña incorrectos", {
           position: Toast.positions.CENTER,
