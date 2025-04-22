@@ -4,7 +4,6 @@ import {globalStyles} from "../../../styles"
 import {useFormik} from "formik"
 import {initialValues, validationSchema} from "./RegisterForm.form"
 import {authCtrl} from "../../../api/auth"
-import Toast from "react-native-root-toast"
 
 export function RegisterForm(props) {
   const {showLogin} = props
@@ -22,9 +21,8 @@ export function RegisterForm(props) {
         await authCtrl.register(email, username, password)
         showLogin()
       } catch (error) {
-        Toast.show("Error al registrar el usuario", {
-          position: Toast.positions.CENTER,
-        })
+        console.log(error)
+        //toast
       }
     }
   })
