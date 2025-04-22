@@ -5,7 +5,7 @@ import { RegisterForm, LoginForm } from '../../../components/Auth'
 import logo from '../../../../assets/images/logo.png'
 
 export function AuthScreen() {
-  const [showLogin, setShowLogin] = useState(true)
+  const [showLogin, setShowLogin] = useState(false)
 
   const onShowLoginRegister = () => setShowLogin((prevState) => !prevState);
   return (
@@ -17,7 +17,7 @@ export function AuthScreen() {
       <KeyboardAvoidingView
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
       >
-        {showLogin ? (<LoginForm showRegister={onShowLoginRegister}/>) : (<RegisterForm showLogin={onShowLoginRegister} />)}
+        {showLogin ? (<LoginForm/>) : (<RegisterForm showLogin={onShowLoginRegister} />)}
       </KeyboardAvoidingView>
     </View>
   )
