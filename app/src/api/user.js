@@ -7,7 +7,7 @@ async function getMe(){
         const params = {
             headers: {
                 Authorization: 
-                "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwiaWF0IjoxNzQ1Mjg2ODIxLCJleHAiOjE3NDc4Nzg4MjF9.oRxwbU55xux4nGxd0GKmMqDtuqm71Tvi7ZD9RnM1xog",
+                "Bearer inserte token here",
             },
         };
 
