@@ -1,9 +1,10 @@
 import { View, Text } from 'react-native'
+import {Layout} from "../../layouts"
 
 export function AccountScreen() {
   return (
-    <View>
+    <Layout.Basic>
       <Text>AccountScreen</Text>
-    </View>
+    </Layout.Basic>
   )
 }
