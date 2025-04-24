@@ -10,11 +10,13 @@ export async function authFetch(url, params){
 
     if (!token){
         logout();
+        return Promise.reject("No token found");
     }
 
     else{
         if (fn.hasTokenExpired(token)){
             logout();
+            return Promise.reject("Token expired");
         }
         
         else{
@@ -22,7 +24,7 @@ export async function authFetch(url, params){
                 ...params,
                 headers: {
                     ...params?.headers,
-                    Authorization: "Bearer ${token}",
+                    Authorization: `Bearer ${token}`,
                 },
             };
 
