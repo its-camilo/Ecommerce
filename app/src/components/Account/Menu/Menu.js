@@ -1,15 +1,30 @@
-import { View, Text } from 'react-native'
+import { View, Text, Alert } from 'react-native'
 import { styles } from './Menu.styles'
 import {List} from 'react-native-paper'
 import {map} from 'lodash'
 import {accountMenu, appMenu} from "./Menu.data"
 import { useNavigation } from '@react-navigation/native'
+import {useAuth} from "../../../hooks"
 
 export function Menu() {
     const navigation = useNavigation()
+    const {logout} = useAuth()
 
     const alertLogout = () => {
-      console.log("Cerrar sesión")
+      Alert.alert(
+        "Cerrar sesión",
+        "¿Estás seguro de que quieres cerrar sesión?",
+        [
+          {
+            text: "No",
+          },
+          {
+            text: "Si",
+            onPress: () => console.log("Cerrar sesión")
+          }
+        ],
+        { cancelable: false }
+      )
     }
 
   return (
