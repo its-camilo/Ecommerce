@@ -1,9 +1,10 @@
 import { View, Text } from 'react-native'
+import {Layout} from "../../layouts"
 
 export function ChangeEmailScreen() {
   return (
-    <View>
+    <Layout.Basic textTitleCenter="Cambiar correo electónico">
       <Text>ChangeEmailScreen</Text>
-    </View>
+    </Layout.Basic>
   )
 }

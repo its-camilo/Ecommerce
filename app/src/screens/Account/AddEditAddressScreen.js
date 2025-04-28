@@ -1,9 +1,10 @@
-import { View, Text } from 'react-native'
+import { Text } from 'react-native'
+import {Layout} from "../../layouts"
 
 export function AddEditAddressScreen() {
   return (
-    <View>
+    <Layout.Basic textTitleCenter="Editar direcciones">
       <Text>AddEditAddressScreen</Text>
-    </View>
+    </Layout.Basic>
   )
 }

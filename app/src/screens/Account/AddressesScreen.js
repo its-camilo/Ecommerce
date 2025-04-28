@@ -1,9 +1,10 @@
-import { View, Text } from 'react-native'
+import { Text } from 'react-native'
+import {Layout} from "../../layouts"
 
 export function AddressesScreen() {
   return (
-    <View>
+    <Layout.Basic textTitleCenter="Direcciones de envío">
       <Text>AddressesScreen</Text>
-    </View>
+    </Layout.Basic>
   )
 }

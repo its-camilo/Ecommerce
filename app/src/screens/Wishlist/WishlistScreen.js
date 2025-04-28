@@ -1,9 +1,10 @@
 import { View, Text } from 'react-native'
+import {Layout} from "../../layouts"
 
 export function WishlistScreen() {
   return (
-    <View>
+    <Layout.Basic textTitleCenter="Lista de deseos" showBack={false}>
       <Text>WishlistScreen</Text>
-    </View>
+    </Layout.Basic>
   )
 }

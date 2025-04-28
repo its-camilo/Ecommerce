@@ -1,9 +1,10 @@
-import { View, Text } from 'react-native'
+import { Text } from 'react-native'
+import {Layout} from "../../layouts"
 
 export function OrdersScreen() {
   return (
-    <View>
+    <Layout.Basic textTitleCenter="Pedidos">
       <Text>OrdersScreen</Text>
-    </View>
+    </Layout.Basic>
   )
 }

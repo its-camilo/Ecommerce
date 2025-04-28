@@ -1,9 +1,10 @@
 import { View, Text } from 'react-native'
+import {Layout} from "../../layouts"
 
 export function CartScreen() {
   return (
-    <View>
+    <Layout.Basic textTitleCenter="Carrito" showBack={false}> 
       <Text>CartScreen</Text>
-    </View>
+    </Layout.Basic>
   )
 }

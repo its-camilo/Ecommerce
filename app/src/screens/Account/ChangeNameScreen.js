@@ -1,9 +1,10 @@
-import { View, Text } from 'react-native'
+import { Text } from 'react-native'
+import {Layout} from "../../layouts"
 
 export function ChangeNameScreen() {
   return (
-    <View>
+    <Layout.Basic textTitleCenter="Cambiar nombre">
       <Text>ChangeNameScreen</Text>
-    </View>
+    </Layout.Basic>
   )
 }

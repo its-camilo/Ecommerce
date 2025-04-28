@@ -1,9 +1,10 @@
-import { View, Text } from 'react-native'
+import { Text } from 'react-native'
+import {Layout} from "../../layouts"
 
 export function ChangePasswordScreen() {
   return (
-    <View>
+    <Layout.Basic textTitleCenter="Cambiar contraseña">
       <Text>ChangePasswordScreen</Text>
-    </View>
+    </Layout.Basic>
   )
 }
