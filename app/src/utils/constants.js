@@ -5,6 +5,7 @@ export const ENV ={
         LOGIN: "auth/local",
         USERS_ME: "users/me",
         USERS: "users",
+        ADDRESSES: "addresses",
     },
     STORAGE:{
         TOKEN: "token",
