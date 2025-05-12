@@ -1,5 +1,7 @@
 export const ENV ={
-    API_URL: "http://192.168.10.31:1337/api",
+    API_URL: "http://168.176.25.36:1337/api",
+    //168.176.25.36 u
+    //192.168.10.31 casa
     ENDPOINTS: {
         REGISTER: "auth/local/register",
         LOGIN: "auth/local",

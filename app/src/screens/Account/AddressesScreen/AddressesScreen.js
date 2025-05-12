@@ -1,17 +1,19 @@
-import { Text, ScrollView, Pressable, ActivityIndicator } from 'react-native'
+import { Text, ScrollView, Pressable, ActivityIndicator, View } from 'react-native'
 import {Layout} from "../../../layouts"
 import {addressCtrl} from "../../../api"
 import { useState, useCallback } from 'react'
-import { useFocusEffect } from '@react-navigation/native'
+import { useFocusEffect, useNavigation } from '@react-navigation/native'
 import { useAuth } from '../../../hooks'
 import { IconButton } from 'react-native-paper'
 import {size} from "lodash"
 import { styles } from './AddressesScreen.styles'
 import {AddressList} from "../../../components/Addresses"
+import {screensName} from "../../../utils"
 
 export function AddressesScreen() {
   const [addresses, setAddresses] = useState(null)
   const { user } = useAuth()
+  const navigation = useNavigation()
 
   useFocusEffect(
     useCallback(() => {
@@ -27,9 +29,20 @@ export function AddressesScreen() {
     console.log(response.data)
   }
 
+  const goToAddAddress = () => {
+    navigation.navigate(screensName.account.addEditAddress)
+  }
+
   return (
     <Layout.Basic textTitleCenter="Direcciones de envío">
       <ScrollView style={styles.container}>
+
+        <Pressable onPress={goToAddAddress}>
+          <View style={styles.addAddress}>
+            <Text style={styles.addAddressText}>Añadir una dirección</Text>
+            <IconButton icon="arrow-right" color="#000" size={19}/>
+          </View>
+        </Pressable>
 
         {!addresses ? (
           <ActivityIndicator size="large" style={styles.loading} />

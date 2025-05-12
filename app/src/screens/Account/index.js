@@ -6,4 +6,4 @@ export * from "./ChangeUserNameScreen";
 export * from "./OrderScreen";
 export * from "./OrdersScreen";
 export * from "./AddressesScreen";
-export * from "./AddEditAddressScreen";
+export * from "./AddEditAddressScreen/AddEditAddressScreen";
