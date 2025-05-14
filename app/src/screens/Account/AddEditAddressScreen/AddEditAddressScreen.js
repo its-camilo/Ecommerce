@@ -7,15 +7,50 @@ import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scrollview"
 import {initialValues, validationSchema} from "./AddEditAddressScreen.form"
 import { useFormik } from "formik"
 import Toast from "react-native-root-toast"
+import { addressCtrl } from '@/src/api'
+import { useAuth } from '@/src/hooks'
+import { useNavigation } from '@react-navigation/native'
+import { useEffect, useState } from 'react'
 
-export function AddEditAddressScreen() {
+export function AddEditAddressScreen(props) {
+  const {route: {params},} = props;
+  const navigation = useNavigation();
+  const {user} = useAuth();
+  const addressId = params?.addressId;
+  //const addressId = addressid ? parseInt(addressid) - 1 : null;
+  const [screenTitle, setScreenTitle] = useState("Crear dirección");
+
+  useEffect(() => {
+    const title = addressId ? "Editar dirección" : "Crear dirección";
+    setScreenTitle(title);
+    
+    navigation.setOptions({
+      headerTitle: title,
+    });
+  }, [navigation, addressId]);
+
+  useEffect(() => {
+    if(addressId){
+      retriveAddress();
+    }
+  }, [addressId]);
+
   const formik = useFormik({
     initialValues: initialValues(),
     validationSchema: validationSchema(),
     validateOnChange: false,
-    onSubmit: (formValue) => {
+    onSubmit: async (formValue) => {
       try {
-        console.log(formValue);
+        if (addressId) {
+          // Editar dirección
+        }
+        else{
+          await addressCtrl.create(user.id, formValue);
+          Toast.show("Dirección creada correctamente", {
+          position: Toast.positions.CENTER,
+          })
+        }
+        navigation.goBack();
       } catch (error) {
         console.log(error);
         Toast.show("Error al crear la dirección", {
@@ -25,8 +60,20 @@ export function AddEditAddressScreen() {
     }
   });
 
+  const retriveAddress = async () => {
+    const response = await addressCtrl.get(addressId);
+    await formik.setFieldValue("title", response.title);
+    await formik.setFieldValue("name", response.name);
+    await formik.setFieldValue("address", response.address);
+    await formik.setFieldValue("postal_code", response.postal_code);
+    await formik.setFieldValue("city", response.city);
+    await formik.setFieldValue("state", response.state);
+    await formik.setFieldValue("country", response.country);
+    await formik.setFieldValue("phone", response.phone);
+  }
+
   return (
-    <Layout.Basic textTitleCenter="Crear dirección" backButton>
+    <Layout.Basic textTitleCenter={screenTitle} backButton> 
       <KeyboardAwareScrollView extraScrollHeight={25}>
         <View style={styles.container}>
           <TextInput
@@ -92,7 +139,7 @@ export function AddEditAddressScreen() {
             onPress={formik.handleSubmit}
             loading={formik.isSubmitting}
           >
-            Crear dirección
+            {addressId ? "Actualizar dirección" : "Crear dirección"}
           </Button>
         </View>
       </KeyboardAwareScrollView>
