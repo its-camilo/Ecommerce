@@ -5,11 +5,11 @@ import { Button } from 'react-native-paper';
 import {Address} from "./Address"
 
 export function AddressList(props) {
-    const { addresses } = props;
+    const { addresses, onReload } = props;
   return (
     <View style={styles.container}>
       {map(addresses, (address) =>(
-        <Address key={address.id} addressId={address.id} address={address}/> //antes era attributes pero la estructura cambio y ya no es asi v:
+        <Address key={address.id} addressId={address.id} address={address} onReload={onReload}/> //antes era attributes pero la estructura cambio y ya no es asi v:
       ))}
     </View>
   )

@@ -12,15 +12,20 @@ import {screensName} from "../../../utils"
 
 export function AddressesScreen() {
   const [addresses, setAddresses] = useState(null)
+  const [reload, setReload] = useState(false)
   const { user } = useAuth()
   const navigation = useNavigation()
+
+  const onReload = () => {
+    setReload((prevState) => !prevState)
+  }
 
   useFocusEffect(
     useCallback(() => {
       (async () => {
         retrieveAddresses()
       })()
-    }, [])
+    }, [reload])
   );
 
   const retrieveAddresses = async () => {
@@ -51,7 +56,7 @@ export function AddressesScreen() {
             Crea tu primera dirección
           </Text>
         ) : (
-          <AddressList addresses={addresses}/>
+          <AddressList addresses={addresses} onReload={onReload}/>
         )}
 
       </ScrollView>

@@ -42,7 +42,10 @@ export function AddEditAddressScreen(props) {
     onSubmit: async (formValue) => {
       try {
         if (addressId) {
-          // Editar dirección
+          await addressCtrl.update(addressId, formValue);
+          Toast.show("Dirección actualizada correctamente", {
+            position: Toast.positions.CENTER,
+          });
         }
         else{
           await addressCtrl.create(user.id, formValue);

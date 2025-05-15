@@ -16,11 +16,11 @@ async function getAllAddresses(userId) {
     }
 }
 
-async function getAddressById(addressId) {
+async function getAddressById(addressId) { //:''v
     try {
         x=parseInt(addressId)-1;
-        const filters = `filters[address][id][$eq]=${x}`;
-        const url = `${ENV.API_URL}/${ENV.ENDPOINTS.ADDRESSES}/${filters}`; //da error 404
+        const filters = `filters[id][$eq]=${x}`;
+        const url = `${ENV.API_URL}/${ENV.ENDPOINTS.ADDRESSES}/${addressId}`; //da error 404
         const response = await authFetch(url);
 
         if (response.status !== 200) throw response;
@@ -56,8 +56,48 @@ async function createAddress(userId, data){
     }
 }
 
+async function updateAddress(addressId, data) { //:''v
+    try {
+        const url = `${ENV.API_URL}/${ENV.ENDPOINTS.ADDRESSES}/${addressId}`;
+        const params = {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({data}),
+        };
+
+        const response = await authFetch(url, params);
+
+        if (response.status !== 200 && response.status !== 201) throw response;
+        return await response.json();
+    } catch (error) {
+        throw error;
+    }
+}
+
+async function deleteAddress(addressId) {
+    try {
+        x=parseInt(addressId)-1;
+        const filters = `filters[id][$eq]=${addressId}`;
+        const url = `${ENV.API_URL}/${ENV.ENDPOINTS.ADDRESSES}/${filters}`;
+        const params = {
+            method: "DELETE",
+        };
+
+        const response = await authFetch(url, params);
+
+        if (response.status !== 200 && response.status !== 201) throw response;
+        return await response.json();
+    } catch (error) {
+        throw error;
+    }
+}
+
 export const addressCtrl = {
     getAll: getAllAddresses,
     get: getAddressById,
     create: createAddress,
+    update: updateAddress,
+    delete: deleteAddress,
 };
