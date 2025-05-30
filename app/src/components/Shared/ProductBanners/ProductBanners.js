@@ -1,8 +1,9 @@
-import { View, Dimensions, Image, Pressable, ScrollView } from 'react-native'
+import { View, Dimensions, Image, Pressable, ScrollView, TouchableOpacity } from 'react-native'
 import { useState, useEffect, useRef } from 'react'
 import { styles } from './ProductBanners.styles'
 import { ENV, screensName } from '../../../utils'
 import { useNavigation } from '@react-navigation/native'
+import Icon from 'react-native-vector-icons/FontAwesome'
 
 const width = Dimensions.get('window').width
 
@@ -18,7 +19,6 @@ export function ProductBanners(props) {
       navigation.navigate(screensName.home.product, { productId: id });
     }
   }
-
   // Auto-rotation effect
   useEffect(() => {
     if (!banners || banners.length <= 1) return;
@@ -41,13 +41,35 @@ export function ProductBanners(props) {
 
     return () => clearInterval(timer);
   }, [banners]);
+
+  // Navigation functions
+  const goToPrevious = () => {
+    const prevIndex = currentIndex === 0 ? banners.length - 1 : currentIndex - 1;
+    setCurrentIndex(prevIndex);
+    if (scrollViewRef.current) {
+      scrollViewRef.current.scrollTo({
+        x: prevIndex * width,
+        animated: true,
+      });
+    }
+  };
+
+  const goToNext = () => {
+    const nextIndex = (currentIndex + 1) % banners.length;
+    setCurrentIndex(nextIndex);
+    if (scrollViewRef.current) {
+      scrollViewRef.current.scrollTo({
+        x: nextIndex * width,
+        animated: true,
+      });
+    }
+  };
   return (
-    <View style={styles.container}>
-      <ScrollView
+    <View style={styles.container}>      <ScrollView
         ref={scrollViewRef}
         horizontal
         pagingEnabled
-        showsHorizontalScrollIndicator={true}
+        showsHorizontalScrollIndicator={false}
         style={styles.scrollView}
         onMomentumScrollEnd={(event) => {
           // Update current index when user manually scrolls
@@ -62,15 +84,38 @@ export function ProductBanners(props) {
             ? `${ENV.API_URL.replace('/api', '')}${urlImage}`
             : urlImage;
           
-          return (
-            <Pressable key={index} onPress={() => goToProduct(item.product.id)}>
+          return (            <Pressable key={index} onPress={() => goToProduct(item.product.id)}>
               <Image
                 source={{ uri: fullImageUrl }}
                 style={styles.carousel}
+                resizeMode="contain"
               />
             </Pressable>
           );        })}
       </ScrollView>
+      
+      {/* Navigation arrows */}
+      {banners && banners.length > 1 && (
+        <>
+          {/* Left arrow */}
+          <TouchableOpacity 
+            style={[styles.arrowButton, styles.leftArrow]}
+            onPress={goToPrevious}
+            activeOpacity={0.7}
+          >
+            <Icon name="chevron-left" size={20} color="#fff" />
+          </TouchableOpacity>
+
+          {/* Right arrow */}
+          <TouchableOpacity 
+            style={[styles.arrowButton, styles.rightArrow]}
+            onPress={goToNext}
+            activeOpacity={0.7}
+          >
+            <Icon name="chevron-right" size={20} color="#fff" />
+          </TouchableOpacity>
+        </>
+      )}
       
       {/* Pagination dots */}
       {banners && banners.length > 1 && (

@@ -8,10 +8,28 @@ export const styles = StyleSheet.create({
     },
     scrollView: {
         flexGrow: 0,
-    },
-    carousel: {
+    },    carousel: {
         width: width,
-        height: 160,
+        height: 200, // Aumentamos la altura para dar más espacio
+        backgroundColor: '#f0f0f0', // Fondo para visualizar mejor el contenedor
+    },
+    arrowButton: {
+        position: 'absolute',
+        top: '50%',
+        marginTop: -20,
+        width: 40,
+        height: 40,
+        borderRadius: 20,
+        backgroundColor: 'rgba(0, 0, 0, 0.5)',
+        justifyContent: 'center',
+        alignItems: 'center',
+        zIndex: 10,
+    },
+    leftArrow: {
+        left: 10,
+    },
+    rightArrow: {
+        right: 10,
     },
     paginationContainer: {
         flexDirection: 'row',
