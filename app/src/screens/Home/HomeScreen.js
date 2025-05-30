@@ -25,7 +25,7 @@ export function HomeScreen() {
     }
   }
   return (
-    <Layout.Basic showBack={false} textTitleCenter="Home">
+    <Layout.Basic showBack={false} textTitleCenter="Inicio">
       {banners.length > 0 && (
         <ProductBanners banners={banners} />
       )}
