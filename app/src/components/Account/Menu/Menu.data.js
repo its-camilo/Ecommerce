@@ -1,4 +1,4 @@
-import {screensName} from "../../../utils"
+import { screensName } from "../../../utils";
 
 export const accountMenu = [
   {
@@ -24,28 +24,28 @@ export const accountMenu = [
     description: "Cambia la contraseña de tu cuenta",
     leftIcon: "key-outline",
     screen: screensName.account.changePassword,
-  }, 
-]
+  },
+];
 
 export const appMenu = [
-    {
-      title: "Pedidos",
-      description: "Lista de todos los pedidos",
-      leftIcon: "order-bool-descending-variant",
-      screen: screensName.account.orders,
-    },
+  {
+    title: "Pedidos",
+    description: "Lista de todos los pedidos",
+    leftIcon: "order-bool-descending-variant",
+    screen: screensName.account.orders,
+  },
 
-    {
-      title: "Mis direcciones",
-      description: "Gestiona tus direcciones de envío",
-      leftIcon: "map-marker-outline",
-      screen: screensName.account.addresses,
-    },
+  {
+    title: "Mis direcciones",
+    description: "Gestiona tus direcciones de envío",
+    leftIcon: "map-marker-outline",
+    screen: screensName.account.addresses,
+  },
 
-    {
-        title: "Lista de deseos",
-        description: "Lista de todos los productos que te quieres comprar",
-        leftIcon: "heart-outline",
-        screen: screensName.wishlist.root,
-      },
-  ]
+  {
+    title: "Lista de deseos",
+    description: "Lista de todos los productos que te quieres comprar",
+    leftIcon: "heart-outline",
+    screen: screensName.wishlist.root,
+  },
+];

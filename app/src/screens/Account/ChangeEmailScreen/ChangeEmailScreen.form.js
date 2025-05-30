@@ -1,4 +1,4 @@
-import * as Yup from 'yup';
+import * as Yup from "yup";
 
 export function initialValues(email) {
   return {
@@ -7,9 +7,7 @@ export function initialValues(email) {
 }
 
 export function validationSchema() {
-    return Yup.object({
-        email: Yup.string()
-            .email(true)
-            .required(true),
-    })
+  return Yup.object({
+    email: Yup.string().email(true).required(true),
+  });
 }

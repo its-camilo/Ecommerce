@@ -1,2 +1,2 @@
-export * from "./UserInfo"
-export * from "./Menu"
+export * from "./UserInfo";
+export * from "./Menu";

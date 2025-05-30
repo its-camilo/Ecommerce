@@ -1,12 +1,12 @@
 import { StyleSheet } from "react-native";
 
 export const styles = StyleSheet.create({
-  titleItem : {
+  titleItem: {
     fontWeight: "bold",
     color: "#000",
   },
-  titleLogoutItem:{
+  titleLogoutItem: {
     fontWeight: "bold",
     color: "#BB0000",
-  }
+  },
 });

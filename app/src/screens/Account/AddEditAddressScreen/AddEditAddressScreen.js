@@ -1,21 +1,23 @@
-import { Text, View } from 'react-native'
-import { Layout } from "../../../layouts"
-import { TextInput, Button } from 'react-native-paper'
-import { styles } from '../ChangeEmailScreen/ChangeEmailScreen.styles'
-import { globalStyles } from '@/src/styles'
-import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scrollview"
-import {initialValues, validationSchema} from "./AddEditAddressScreen.form"
-import { useFormik } from "formik"
-import Toast from "react-native-root-toast"
-import { addressCtrl } from '@/src/api'
-import { useAuth } from '@/src/hooks'
-import { useNavigation } from '@react-navigation/native'
-import { useEffect, useState } from 'react'
+import { Text, View } from "react-native";
+import { Layout } from "../../../layouts";
+import { TextInput, Button } from "react-native-paper";
+import { styles } from "../ChangeEmailScreen/ChangeEmailScreen.styles";
+import { globalStyles } from "@/src/styles";
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scrollview";
+import { initialValues, validationSchema } from "./AddEditAddressScreen.form";
+import { useFormik } from "formik";
+import Toast from "react-native-root-toast";
+import { addressCtrl } from "@/src/api";
+import { useAuth } from "@/src/hooks";
+import { useNavigation } from "@react-navigation/native";
+import { useEffect, useState } from "react";
 
 export function AddEditAddressScreen(props) {
-  const {route: {params},} = props;
+  const {
+    route: { params },
+  } = props;
   const navigation = useNavigation();
-  const {user} = useAuth();
+  const { user } = useAuth();
   const addressId = params?.addressId;
   //const addressId = addressid ? parseInt(addressid) - 1 : null;
   const [screenTitle, setScreenTitle] = useState("Crear dirección");
@@ -23,14 +25,14 @@ export function AddEditAddressScreen(props) {
   useEffect(() => {
     const title = addressId ? "Editar dirección" : "Crear dirección";
     setScreenTitle(title);
-    
+
     navigation.setOptions({
       headerTitle: title,
     });
   }, [navigation, addressId]);
 
   useEffect(() => {
-    if(addressId){
+    if (addressId) {
       retriveAddress();
     }
   }, [addressId]);
@@ -46,12 +48,11 @@ export function AddEditAddressScreen(props) {
           Toast.show("Dirección actualizada correctamente", {
             position: Toast.positions.CENTER,
           });
-        }
-        else{
+        } else {
           await addressCtrl.create(user.id, formValue);
           Toast.show("Dirección creada correctamente", {
-          position: Toast.positions.CENTER,
-          })
+            position: Toast.positions.CENTER,
+          });
         }
         navigation.goBack();
       } catch (error) {
@@ -60,7 +61,7 @@ export function AddEditAddressScreen(props) {
           position: Toast.positions.CENTER,
         });
       }
-    }
+    },
   });
 
   const retriveAddress = async () => {
@@ -73,10 +74,10 @@ export function AddEditAddressScreen(props) {
     await formik.setFieldValue("state", response.state);
     await formik.setFieldValue("country", response.country);
     await formik.setFieldValue("phone", response.phone);
-  }
+  };
 
   return (
-    <Layout.Basic textTitleCenter={screenTitle} backButton> 
+    <Layout.Basic textTitleCenter={screenTitle} backButton>
       <KeyboardAwareScrollView extraScrollHeight={25}>
         <View style={styles.container}>
           <TextInput
@@ -147,5 +148,5 @@ export function AddEditAddressScreen(props) {
         </View>
       </KeyboardAwareScrollView>
     </Layout.Basic>
-  )
+  );
 }

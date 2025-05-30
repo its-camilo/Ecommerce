@@ -13,9 +13,9 @@ function calcDiscountPrice(price, discount) {
  * order controller
  */
 const strapi_1 = require("@strapi/strapi");
-exports.default = strapi_1.factories.createCoreController('api::order.order', ({ strapi }) => ({
+exports.default = strapi_1.factories.createCoreController("api::order.order", ({ strapi }) => ({
     async paymentOrder(ctx) {
-        console.log('Ok'); //cuando se llama al endpoint sale ese log en el server
+        console.log("Ok"); //cuando se llama al endpoint sale ese log en el server
         const { token, products, userId, addressShipping } = ctx.request.body; //no se sabe si token va v: por que es de stripe
         let totalPayment = 0;
         products.forEach((product) => {
@@ -24,32 +24,32 @@ exports.default = strapi_1.factories.createCoreController('api::order.order', ({
         });
         //aca se comunica con stripe o lo que corresponda
         /*//lo que se guarda en la base de datos
-        const data = {
-            products,
-            user: userId,
-            totalPayment,
-            //idPayment: charge.id, lo creamos nosotros porque no hay stripe
-            addressShipping
-        };
-
-        const model = strapi.contentTypes['api::order.order'];
-        const validData = await strapi.entityValidator.validateEntityCreation(
-            model,
-            data
-        );
-
-        const entry = await strapi.db.query("api::order.order").create({data: validData,})
-
-        return entry;*/
+          const data = {
+              products,
+              user: userId,
+              totalPayment,
+              //idPayment: charge.id, lo creamos nosotros porque no hay stripe
+              addressShipping
+          };
+  
+          const model = strapi.contentTypes['api::order.order'];
+          const validData = await strapi.entityValidator.validateEntityCreation(
+              model,
+              data
+          );
+  
+          const entry = await strapi.db.query("api::order.order").create({data: validData,})
+  
+          return entry;*/
         const orderData = {
             products,
             user: userId,
             totalPayment,
             //idPayment: charge.id, lo creamos nosotros porque no hay stripe
-            addressShipping
+            addressShipping,
         };
         const entry = await strapi.db.query("api::order.order").create({
-            data: orderData
+            data: orderData,
         });
         return entry;
     },

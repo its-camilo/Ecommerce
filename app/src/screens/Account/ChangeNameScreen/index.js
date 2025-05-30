@@ -1,1 +1,1 @@
-export * from './ChangeNameScreen'
+export * from "./ChangeNameScreen";

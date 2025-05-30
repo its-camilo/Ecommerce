@@ -1,1 +1,1 @@
-export * from './MyStatusBar'
+export * from "./MyStatusBar";

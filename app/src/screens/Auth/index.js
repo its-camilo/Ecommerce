@@ -1,1 +1,1 @@
-export * from './AuthScreen/AuthScreen'
+export * from "./AuthScreen/AuthScreen";

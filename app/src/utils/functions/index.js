@@ -1,5 +1,5 @@
-import {hasTokenExpired} from "./hasTokenExpired"
+import { hasTokenExpired } from "./hasTokenExpired";
 
 export const fn = {
-    hasTokenExpired,
+  hasTokenExpired,
 };
