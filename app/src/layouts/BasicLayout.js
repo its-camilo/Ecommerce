@@ -1,6 +1,7 @@
 import { ScrollView, View, TouchableOpacity, Text } from "react-native";
 import { Search, MyStatusBar } from "../components/Shared";
 import { useNavigation } from "@react-navigation/native";
+import { Ionicons } from "@expo/vector-icons";
 
 export function BasicLayout(props) {
   const {
@@ -33,10 +34,8 @@ export function BasicLayout(props) {
       >
         <View style={{ flex: 1, flexDirection: "row", alignItems: "center" }}>
           {showBack && (
-            <TouchableOpacity onPress={goBack}>
-              <Text style={{ color: "white", marginRight: 10 }}>
-                {"<"} Back
-              </Text>
+            <TouchableOpacity onPress={goBack} style={{ flexDirection: "row", alignItems: "center" }}>
+              <Ionicons name="arrow-back" size={24} color="white" />
             </TouchableOpacity>
           )}
         </View>
