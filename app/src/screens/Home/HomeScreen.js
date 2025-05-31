@@ -10,6 +10,7 @@ import { ProductBanners, Search } from "../../components/Shared";
 export function HomeScreen() {
   const { logout } = useAuth();
   const [banners, setBanners] = useState([]);
+  const [products, setProducts] = useState(null);
 
   useEffect(() => {
     getBanners();
@@ -29,6 +30,7 @@ export function HomeScreen() {
     try {
       const response = await productCtrl.getLatestPublished(20);
       console.log("Products:", response);
+      setProducts(response?.data || []);
     } catch (error) {
       Toast.show("Error al cargar los productos", {
         position: Toast.positions.CENTER,
