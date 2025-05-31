@@ -1,12 +1,11 @@
 import { ScrollView, View, TouchableOpacity, Text } from "react-native";
-import { Search, MyStatusBar } from "../components/Shared";
+import { MyStatusBar } from "../components/Shared";
 import { useNavigation } from "@react-navigation/native";
 import { Ionicons } from "@expo/vector-icons";
 
 export function BasicLayout(props) {
   const {
     children,
-    hideSearch = false,
     showBack = true,
     textTitleCenter = "",
   } = props;
@@ -24,6 +23,7 @@ export function BasicLayout(props) {
         translucent={false}
       />
 
+      {/* Header con botón de regreso y título */}
       <View
         style={{
           flexDirection: "row",
@@ -48,9 +48,7 @@ export function BasicLayout(props) {
           </View>
         ) : null}
 
-        <View style={{ flex: 1, alignItems: "flex-end" }}>
-          {!hideSearch && <Search.Input />}
-        </View>
+        <View style={{ flex: 1 }} />
       </View>
 
       <ScrollView>{children}</ScrollView>
