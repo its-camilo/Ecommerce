@@ -3,7 +3,7 @@ import { useAuth } from "../../hooks";
 import { Button } from "react-native-paper";
 import { BasicLayout, Layout } from "../../layouts";
 import { useState, useEffect } from "react";
-import { homeBannerCtrl } from "@/src/api";
+import { homeBannerCtrl, productCtrl } from "@/src/api";
 import Toast from "react-native-root-toast";
 import { ProductBanners, Search } from "../../components/Shared";
 
@@ -13,6 +13,7 @@ export function HomeScreen() {
 
   useEffect(() => {
     getBanners();
+    getProducts();
   }, []);
   const getBanners = async () => {
     try {
@@ -20,6 +21,16 @@ export function HomeScreen() {
       setBanners(response?.data || []);
     } catch (error) {
       Toast.show("Error al cargar los banners", {
+        position: Toast.positions.CENTER,
+      });
+    }
+  };
+  const getProducts = async () => {
+    try {
+      const response = await productCtrl.getLatestPublished(20);
+      console.log("Products:", response);
+    } catch (error) {
+      Toast.show("Error al cargar los productos", {
         position: Toast.positions.CENTER,
       });
     }
