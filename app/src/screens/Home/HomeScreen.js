@@ -5,7 +5,7 @@ import { BasicLayout, Layout } from "../../layouts";
 import { useState, useEffect } from "react";
 import { homeBannerCtrl, productCtrl } from "@/src/api";
 import Toast from "react-native-root-toast";
-import { ProductBanners, Search } from "../../components/Shared";
+import { ProductBanners, Search, GridProducts } from "../../components/Shared";
 
 export function HomeScreen() {
   const { logout } = useAuth();
@@ -45,6 +45,7 @@ export function HomeScreen() {
       </View>
       
       {banners.length > 0 && <ProductBanners banners={banners} />}
+      <GridProducts title="Nuevos productos" products={products}/>
     </Layout.Basic>
   );
 }
