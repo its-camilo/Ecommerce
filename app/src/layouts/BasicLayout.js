@@ -1,5 +1,5 @@
 import { ScrollView, View, TouchableOpacity, Text } from "react-native";
-import { MyStatusBar } from "../components/Shared";
+import { MyStatusBar, Search } from "../components/Shared";
 import { useNavigation } from "@react-navigation/native";
 import { Ionicons } from "@expo/vector-icons";
 
@@ -8,6 +8,7 @@ export function BasicLayout(props) {
     children,
     showBack = true,
     textTitleCenter = "",
+    hideSearch = true,
   } = props;
   const navigation = useNavigation();
 
@@ -50,6 +51,8 @@ export function BasicLayout(props) {
 
         <View style={{ flex: 1 }} />
       </View>
+
+      {!hideSearch && <Search.Input />}
 
       <ScrollView>{children}</ScrollView>
     </>

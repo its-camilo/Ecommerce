@@ -38,10 +38,10 @@ export function HomeScreen() {
     }
   };
   return (
-    <Layout.Basic showBack={false} textTitleCenter="Inicio">
+    <Layout.Basic showBack={false} textTitleCenter="Inicio" hideSearch={false}>
       {/* SearchInput arriba de los banners */}
       <View style={{ paddingHorizontal: 15, paddingVertical: 10, backgroundColor: '#f5f5f5' }}>
-        <Search.Input />
+        
       </View>
       
       {banners.length > 0 && <ProductBanners banners={banners} />}
