@@ -42,7 +42,12 @@ export function HomeScreen() {
   };
 
   return (
-    <Layout.Basic showBack={false} textTitleCenter="Inicio" hideSearch={false}>
+    <Layout.Basic
+      showBack={false}
+      textTitleCenter="Inicio"
+      hideSearch={false}
+      documentTitle="Inicio - Ecommerce App"
+    >
       {/* SearchInput arriba de los banners */}
       <View
         style={{

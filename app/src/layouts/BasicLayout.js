@@ -2,6 +2,7 @@ import { ScrollView, View, TouchableOpacity, Text } from 'react-native';
 import { MyStatusBar, Search } from '../components/Shared';
 import { useNavigation } from '@react-navigation/native';
 import { Ionicons } from '@expo/vector-icons';
+import { useDocumentTitle } from '../hooks';
 
 export function BasicLayout(props) {
   const {
@@ -9,9 +10,16 @@ export function BasicLayout(props) {
     showBack = true,
     textTitleCenter = '',
     hideSearch = true,
+    documentTitle = 'Ecommerce App',
   } = props;
 
   const navigation = useNavigation();
+
+  // Establecer el título del documento de forma más dinámica
+  const pageTitle = textTitleCenter
+    ? `${textTitleCenter} - Ecommerce App`
+    : documentTitle;
+  useDocumentTitle(pageTitle);
 
   const goBack = () => {
     navigation.goBack();
