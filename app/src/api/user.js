@@ -1,4 +1,3 @@
-import { Try } from 'expo-router/build/views/Try';
 import { ENV } from '../utils';
 import { authFetch } from '../lib';
 
