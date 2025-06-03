@@ -1,11 +1,11 @@
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { AuthScreen } from "../../screens/Auth";
-import { screensName } from "../../utils";
-import { HomeStack, WishlistStack, CartStack, AccountStack } from "../stacks";
-import { View } from "react-native";
-import { Badge } from "react-native-paper";
-import AwesomeIcon from "react-native-vector-icons/FontAwesome";
-import { styles } from "./TabNavigation.styles";
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { AuthScreen } from '../../screens/Auth';
+import { screensName } from '../../utils';
+import { HomeStack, WishlistStack, CartStack, AccountStack } from '../stacks';
+import { View } from 'react-native';
+import { Badge } from 'react-native-paper';
+import AwesomeIcon from 'react-native-vector-icons/FontAwesome';
+import { styles } from './TabNavigation.styles';
 
 const Tab = createBottomTabNavigator();
 
@@ -14,7 +14,7 @@ export function TabNavigation() {
     <Tab.Navigator
       screenOptions={({ route }) => ({
         tabBarIcon: ({ focused, color, size }) => setIcon(route, { focused }),
-        tabBarActiveTintColor: "#000",
+        tabBarActiveTintColor: '#000',
         tabBarStyle: styles.tabBar,
         tabBarShowLabel: false,
         headerShown: false,
@@ -23,42 +23,44 @@ export function TabNavigation() {
       <Tab.Screen
         name={screensName.home.root}
         component={HomeStack}
-        options={{ title: "Inicio" }}
+        options={{ title: 'Inicio' }}
       />
       <Tab.Screen
         name={screensName.wishlist.root}
         component={WishlistStack}
-        options={{ title: "Lista de deseos" }}
+        options={{ title: 'Lista de deseos' }}
       />
       <Tab.Screen
         name={screensName.cart.root}
         component={CartStack}
-        options={{ title: "Carrito" }}
+        options={{ title: 'Carrito' }}
       />
       <Tab.Screen
         name={screensName.account.root}
         component={AccountStack}
-        options={{ title: "Mi cuenta" }}
+        options={{ title: 'Mi cuenta' }}
       />
     </Tab.Navigator>
   );
 }
 
 function setIcon(route, routeStatus) {
-  let iconName = "";
-  let color = "#fff";
+  let iconName = '';
+
+  let color = '#fff';
+
   const totalProducts = 3;
 
   if (routeStatus.focused) {
-    color = "#0098d3";
+    color = '#0098d3';
   }
 
   if (route.name === screensName.home.root) {
-    iconName = "home";
+    iconName = 'home';
   } else if (route.name === screensName.wishlist.root) {
-    iconName = "heart";
+    iconName = 'heart';
   } else if (route.name === screensName.account.root) {
-    iconName = "user";
+    iconName = 'user';
   } else if (route.name === screensName.cart.root) {
     return (
       <View>

@@ -1,1 +1,1 @@
-export * from "./ChangePasswordScreen";
+export * from './ChangePasswordScreen';

@@ -1,1 +1,1 @@
-export * from "./AddEditAddressScreen";
+export * from './AddEditAddressScreen';

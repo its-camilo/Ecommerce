@@ -1,11 +1,11 @@
-import * as Yup from "yup";
+import * as Yup from 'yup';
 
 export function initialValues() {
   return {
-    email: "",
-    username: "",
-    password: "",
-    repeatPassword: "",
+    email: '',
+    username: '',
+    password: '',
+    repeatPassword: '',
   };
 }
 
@@ -16,6 +16,6 @@ export function validationSchema() {
     password: Yup.string().required(true),
     repeatPassword: Yup.string()
       .required(true)
-      .oneOf([Yup.ref("password")], true),
+      .oneOf([Yup.ref('password')], true),
   });
 }

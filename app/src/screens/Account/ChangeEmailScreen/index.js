@@ -1,1 +1,1 @@
-export * from "./ChangeEmailScreen";
+export * from './ChangeEmailScreen';

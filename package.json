@@ -1,5 +1,9 @@
 {
+  "scripts": {
+    "format": "prettier --write ."
+  },
   "dependencies": {
     "react-native-root-toast": "^4.0.1"
-  }
+  },
+  "devDependencies": {}
 }

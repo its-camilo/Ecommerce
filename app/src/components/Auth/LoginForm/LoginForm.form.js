@@ -1,9 +1,9 @@
-import * as Yup from "yup";
+import * as Yup from 'yup';
 
 export function initialValues() {
   return {
-    email: "",
-    password: "",
+    email: '',
+    password: '',
   };
 }
 

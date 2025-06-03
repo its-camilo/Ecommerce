@@ -1,6 +1,6 @@
-import { StyleSheet } from "react-native";
+import { StyleSheet } from 'react-native';
 
-export const styled = (backgroundColor) => {
+export const styled = backgroundColor => {
   return StyleSheet.create({
     SafeAreaView: {
       backgroundColor: backgroundColor,

@@ -1,5 +1,5 @@
-import { View, Text } from "react-native";
-import { Layout } from "../../layouts";
+import { View, Text } from 'react-native';
+import { Layout } from '../../layouts';
 
 export function WishlistScreen() {
   return (

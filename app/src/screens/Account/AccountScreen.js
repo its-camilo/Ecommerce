@@ -1,5 +1,5 @@
-import { Layout } from "../../layouts";
-import { UserInfo, Menu } from "../../components/Account";
+import { Layout } from '../../layouts';
+import { UserInfo, Menu } from '../../components/Account';
 
 export function AccountScreen() {
   return (

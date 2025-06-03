@@ -1,9 +1,9 @@
-import { StyleSheet } from "react-native";
+import { StyleSheet } from 'react-native';
 
 export const styles = StyleSheet.create({
   container: {
     height: 100,
-    justifyContent: "center",
+    justifyContent: 'center',
     padding: 20,
   },
   title: {
@@ -11,6 +11,6 @@ export const styles = StyleSheet.create({
   },
   name: {
     fontSize: 20,
-    fontWeight: "bold",
+    fontWeight: 'bold',
   },
 });

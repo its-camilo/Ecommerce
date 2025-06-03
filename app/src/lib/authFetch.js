@@ -1,5 +1,5 @@
-import { storageCtrl } from "../api/storage";
-import { fn } from "../utils";
+import { storageCtrl } from '../api/storage';
+import { fn } from '../utils';
 
 export async function authFetch(url, params) {
   const token = await storageCtrl.getToken();
@@ -10,11 +10,11 @@ export async function authFetch(url, params) {
 
   if (!token) {
     logout();
-    return Promise.reject("No token found");
+    return Promise.reject('No token found');
   } else {
     if (fn.hasTokenExpired(token)) {
       logout();
-      return Promise.reject("Token expired");
+      return Promise.reject('Token expired');
     } else {
       const paramsTemp = {
         ...params,

@@ -1,15 +1,15 @@
-import * as Yup from "yup";
+import * as Yup from 'yup';
 
 export function initialValues() {
   return {
-    title: "",
-    name: "",
-    address: "",
-    postal_code: "",
-    city: "",
-    state: "",
-    country: "",
-    phone: "",
+    title: '',
+    name: '',
+    address: '',
+    postal_code: '',
+    city: '',
+    state: '',
+    country: '',
+    phone: '',
   };
 }
 

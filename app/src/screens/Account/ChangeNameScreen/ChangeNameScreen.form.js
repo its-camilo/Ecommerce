@@ -1,9 +1,9 @@
-import * as Yup from "yup";
+import * as Yup from 'yup';
 
 export function initialValues(firstName, lastName) {
   return {
-    firstName: firstName || "",
-    lastName: lastName || "",
+    firstName: firstName || '',
+    lastName: lastName || '',
   };
 }
 

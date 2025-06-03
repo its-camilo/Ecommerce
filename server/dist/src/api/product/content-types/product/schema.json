@@ -23,17 +23,13 @@
             "required": false
         },
         "main_image": {
-            "allowedTypes": [
-                "images"
-            ],
+            "allowedTypes": ["images"],
             "type": "media",
             "multiple": false,
             "required": true
         },
         "images": {
-            "allowedTypes": [
-                "images"
-            ],
+            "allowedTypes": ["images"],
             "type": "media",
             "multiple": true,
             "required": true

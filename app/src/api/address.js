@@ -1,10 +1,11 @@
-import { parse } from "@babel/core";
-import { authFetch } from "../lib";
-import { ENV } from "../utils";
+import { parse } from '@babel/core';
+import { authFetch } from '../lib';
+import { ENV } from '../utils';
 
 async function getAllAddresses(userId) {
   try {
     const filters = `filters[user][id][$eq]=${userId}`;
+
     const url = `${ENV.API_URL}/${ENV.ENDPOINTS.ADDRESSES}?${filters}`;
 
     const response = await authFetch(url);
@@ -21,11 +22,14 @@ async function getAddressById(addressId) {
   try {
     x = parseInt(addressId) - 1;
     const filters = `filters[id][$eq]=${x}`;
+
     const url = `${ENV.API_URL}/${ENV.ENDPOINTS.ADDRESSES}/${addressId}`; //da error 404
+
     const response = await authFetch(url);
 
     if (response.status !== 200) throw response;
     const result = await response.json();
+
     return { ...result.data.attributes, id: result.data.id };
   } catch (error) {
     throw error;
@@ -35,10 +39,11 @@ async function getAddressById(addressId) {
 async function createAddress(userId, data) {
   try {
     const url = `${ENV.API_URL}/${ENV.ENDPOINTS.ADDRESSES}`;
+
     const params = {
-      method: "POST",
+      method: 'POST',
       headers: {
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
       },
       body: JSON.stringify({
         data: {
@@ -61,10 +66,11 @@ async function updateAddress(addressId, data) {
   //:''v
   try {
     const url = `${ENV.API_URL}/${ENV.ENDPOINTS.ADDRESSES}/${addressId}`;
+
     const params = {
-      method: "PUT",
+      method: 'PUT',
       headers: {
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
       },
       body: JSON.stringify({ data }),
     };
@@ -82,9 +88,11 @@ async function deleteAddress(addressId) {
   try {
     x = parseInt(addressId) - 1;
     const filters = `filters[id][$eq]=${addressId}`;
+
     const url = `${ENV.API_URL}/${ENV.ENDPOINTS.ADDRESSES}/${filters}`;
+
     const params = {
-      method: "DELETE",
+      method: 'DELETE',
     };
 
     const response = await authFetch(url, params);

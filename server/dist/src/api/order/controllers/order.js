@@ -13,12 +13,12 @@ function calcDiscountPrice(price, discount) {
  * order controller
  */
 const strapi_1 = require("@strapi/strapi");
-exports.default = strapi_1.factories.createCoreController("api::order.order", ({ strapi }) => ({
+exports.default = strapi_1.factories.createCoreController('api::order.order', ({ strapi }) => ({
     async paymentOrder(ctx) {
-        console.log("Ok"); //cuando se llama al endpoint sale ese log en el server
+        console.log('Ok'); //cuando se llama al endpoint sale ese log en el server
         const { token, products, userId, addressShipping } = ctx.request.body; //no se sabe si token va v: por que es de stripe
         let totalPayment = 0;
-        products.forEach((product) => {
+        products.forEach(product => {
             const priceTemp = calcDiscountPrice(product.price, product.discount);
             totalPayment += Number(priceTemp) * product.quantity;
         });
@@ -48,7 +48,7 @@ exports.default = strapi_1.factories.createCoreController("api::order.order", ({
             //idPayment: charge.id, lo creamos nosotros porque no hay stripe
             addressShipping,
         };
-        const entry = await strapi.db.query("api::order.order").create({
+        const entry = await strapi.db.query('api::order.order').create({
             data: orderData,
         });
         return entry;

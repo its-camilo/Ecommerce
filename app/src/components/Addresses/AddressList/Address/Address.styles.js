@@ -1,22 +1,22 @@
-import { StyleSheet } from "react-native";
+import { StyleSheet } from 'react-native';
 
 export const styles = StyleSheet.create({
   container: {
     borderWidth: 0.9,
     borderradius: 5,
-    borderColor: "#ddd",
+    borderColor: '#ddd',
     padding: 15,
     marginBottom: 15,
   },
 
   title: {
-    fontWeight: "bold",
+    fontWeight: 'bold',
     paddingBottom: 5,
   },
 
   actions: {
-    flexDirection: "row",
-    justifyContent: "space-between",
+    flexDirection: 'row',
+    justifyContent: 'space-between',
     marginTop: 30,
   },
 });

@@ -1,6 +1,6 @@
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { WishlistScreen } from "../../screens/Wishlist";
-import { screensName } from "../../utils";
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { WishlistScreen } from '../../screens/Wishlist';
+import { screensName } from '../../utils';
 
 const Stack = createNativeStackNavigator();
 

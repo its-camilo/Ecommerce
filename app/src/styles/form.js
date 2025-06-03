@@ -1,4 +1,4 @@
-import { StyleSheet } from "react-native";
+import { StyleSheet } from 'react-native';
 
 export const form = StyleSheet.create({
   input: {
@@ -6,12 +6,12 @@ export const form = StyleSheet.create({
   },
   btnSubmit: {
     padding: 5,
-    backgroundColor: "#0098d3",
+    backgroundColor: '#0098d3',
   },
   btnText: {
     marginTop: 10,
   },
   btnTextLabel: {
-    color: "#000",
+    color: '#000',
   },
 });

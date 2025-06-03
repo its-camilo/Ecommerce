@@ -1,13 +1,14 @@
-import { View, Text, Alert } from "react-native";
-import { styles } from "./Address.styles";
-import { Button } from "react-native-paper";
-import { useNavigation } from "@react-navigation/native";
-import { screensName } from "@/src/utils";
-import { addressCtrl } from "@/src/api";
-import Toast from "react-native-root-toast";
+import { View, Text, Alert } from 'react-native';
+import { styles } from './Address.styles';
+import { Button } from 'react-native-paper';
+import { useNavigation } from '@react-navigation/native';
+import { screensName } from '@/src/utils';
+import { addressCtrl } from '@/src/api';
+import Toast from 'react-native-root-toast';
 
 export function Address(props) {
   const { addressId, address, onReload } = props;
+
   const navigation = useNavigation();
 
   const goToUpdateAddress = () => {
@@ -16,33 +17,33 @@ export function Address(props) {
 
   const deleteAddressAlert = () => {
     Alert.alert(
-      "Eliminar dirección",
+      'Eliminar dirección',
       `¿Estás seguro de que quieres eliminar la dirección (${address.title})?`,
       [
         {
-          text: "No",
+          text: 'No',
         },
         {
-          text: "Si",
+          text: 'Si',
           onPress: () => deleteAddress(),
         },
       ],
-      { cancelable: false },
+      { cancelable: false }
     );
   };
 
   const deleteAddress = async () => {
     try {
-      console.log("Eliminar dirección");
+      console.log('Eliminar dirección');
       await addressCtrl.delete(addressId);
       onReload();
-      Toast.show("Dirección eliminada correctamente", {
+      Toast.show('Dirección eliminada correctamente', {
         position: Toast.positions.CENTER,
       });
       //navigation.goBack();
     } catch (error) {
       console.log(error);
-      Toast.show("Error al eliminar la dirección", {
+      Toast.show('Error al eliminar la dirección', {
         position: Toast.positions.CENTER,
       });
     }
