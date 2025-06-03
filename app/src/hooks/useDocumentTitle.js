@@ -1,29 +1,27 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect } from 'react';
 import { Platform } from 'react-native';
 import { useFocusEffect } from '@react-navigation/native';
 
-export function useDocumentTitle(title) {
-  const titleRef = useRef(title);
+export function useDocumentTitle() {
+  const FIXED_TITLE = 'Ecommerce App';
 
-  // Actualizar la referencia cuando el título cambie
-  useEffect(() => {
-    titleRef.current = title;
-  }, [title]);
-
-  // Establecer el título cuando el componente se monta o el título cambia
-  useEffect(() => {
+  // Función para actualizar el título
+  const updateTitle = React.useCallback(() => {
     if (Platform.OS === 'web' && typeof document !== 'undefined') {
-      document.title = title || 'Ecommerce App';
+      document.title = FIXED_TITLE;
     }
-  }, [title]);
+  }, []);
+
+  // Establecer el título cuando el componente se monta
+  useEffect(() => {
+    updateTitle();
+  }, [updateTitle]);
 
   // Restaurar el título cuando la pantalla vuelve a estar en foco (navegación entre screens)
   useFocusEffect(
     React.useCallback(() => {
-      if (Platform.OS === 'web' && typeof document !== 'undefined') {
-        document.title = titleRef.current || 'Ecommerce App';
-      }
-    }, [])
+      updateTitle();
+    }, [updateTitle])
   );
 
   // Manejar eventos de visibilidad de la página (cambio entre pestañas del navegador)
@@ -31,19 +29,22 @@ export function useDocumentTitle(title) {
     if (Platform.OS === 'web' && typeof document !== 'undefined') {
       const handleVisibilityChange = () => {
         if (!document.hidden) {
-          // La pestaña volvió a ser visible
-          document.title = titleRef.current || 'Ecommerce App';
+          updateTitle();
         }
       };
 
       const handleFocus = () => {
-        // La ventana volvió a tener foco
-        document.title = titleRef.current || 'Ecommerce App';
+        updateTitle();
+      };
+
+      const handlePageShow = () => {
+        updateTitle();
       };
 
       // Agregar listeners para diferentes eventos
       document.addEventListener('visibilitychange', handleVisibilityChange);
       window.addEventListener('focus', handleFocus);
+      window.addEventListener('pageshow', handlePageShow);
 
       return () => {
         document.removeEventListener(
@@ -51,13 +52,14 @@ export function useDocumentTitle(title) {
           handleVisibilityChange
         );
         window.removeEventListener('focus', handleFocus);
+        window.removeEventListener('pageshow', handlePageShow);
       };
     }
-  }, []);
+  }, [updateTitle]);
 }
 
-export function setDocumentTitle(title) {
+export function setDocumentTitle() {
   if (Platform.OS === 'web' && typeof document !== 'undefined') {
-    document.title = title || 'Ecommerce App';
+    document.title = 'Ecommerce App';
   }
 }

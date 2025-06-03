@@ -10,16 +10,12 @@ export function BasicLayout(props) {
     showBack = true,
     textTitleCenter = '',
     hideSearch = true,
-    documentTitle = 'Ecommerce App',
   } = props;
 
   const navigation = useNavigation();
 
-  // Establecer el título del documento de forma más dinámica
-  const pageTitle = textTitleCenter
-    ? `${textTitleCenter} - Ecommerce App`
-    : documentTitle;
-  useDocumentTitle(pageTitle);
+  // Establecer el título del documento (siempre será "Ecommerce App")
+  useDocumentTitle();
 
   const goBack = () => {
     navigation.goBack();
