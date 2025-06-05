@@ -6,12 +6,15 @@ import { useState } from 'react';
 import { SearchHistory } from '../SearchHistory';
 import { searchHistoryCtrl } from '@/src/api';
 import { useSearch } from '@/src/hooks';
+import { useNavigation } from '@react-navigation/native';
+import { screensName } from '@/src/utils';
 
 export function SearchInput() {
   const [containerHeight, setContainerHeight] = useState(0);
   const [openHistory, setOpenHistory] = useState(false);
   const { searchText, setSearchText } = useSearch();
   const openCloseHistory = () => setOpenHistory(prevState => !prevState);
+  const navigation = useNavigation();
 
   const openSearch = () => {
     searchAnimation.transition.start();
@@ -24,8 +27,15 @@ export function SearchInput() {
     openCloseHistory();
   };
 
-  const onSearch = async () => {
-    await searchHistoryCtrl.update(searchText);
+  const onSearch = async (reuseSearch) => {
+    const isReuse = typeof reuseSearch === "string";
+
+    if (!isReuse) {
+      await searchHistoryCtrl.update(searchText);
+    }
+
+    closeSearch();
+    navigation.navigate(screensName.home.search);
   };
 
   return (
@@ -57,7 +67,7 @@ export function SearchInput() {
       <SearchHistory
         open={openHistory}
         height={containerHeight}
-        onSearch={() => console.log('Volver a buscar')}
+        onSearch={onSearch}
       />
     </View>
   );
