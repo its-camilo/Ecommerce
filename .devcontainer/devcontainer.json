@@ -37,5 +37,5 @@
       }
     }
   },
-  "postCreateCommand": "npm install && cd app && npm install && cd ../server && npm install"
+  "postCreateCommand": "yarn install && cd app && yarn install && cd ../server && yarn install"
 }

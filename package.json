@@ -1,6 +1,8 @@
 {
   "scripts": {
-    "format": "prettier --write ."
+    "format": "prettier --write .",
+    "develop": "cd server && yarn develop",
+    "start": "cd app && yarn start"
   },
   "dependencies": {},
   "devDependencies": {}

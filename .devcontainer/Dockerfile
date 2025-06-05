@@ -12,6 +12,9 @@ RUN apt-get update && apt-get install -y \
     python3-pip \
     && rm -rf /var/lib/apt/lists/*
 
+# Install yarn globally
+RUN npm install -g yarn
+
 # Install global npm packages that might be needed
 RUN npm install -g \
     @expo/cli \
@@ -19,7 +22,7 @@ RUN npm install -g \
     pm2
 
 # Set working directory
-WORKDIR /workspaces
+WORKDIR /workspace
 
 # Create a non-root user
 RUN useradd -m -s /bin/bash vscode && \
