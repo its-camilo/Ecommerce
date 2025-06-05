@@ -23,14 +23,35 @@ export function LoginForm(props) {
     onSubmit: async formValue => {
       try {
         const { email, password } = formValue;
+        console.log('Intentando login con:', email);
 
         const response = await authCtrl.login(email, password);
+        console.log('Respuesta del login:', response);
 
         login(response.jwt);
       } catch (error) {
-        Toast.show('Usuario o contraseña incorrectos', {
-          position: Toast.positions.CENTER,
-        });
+        console.error('Error en login:', error);
+        console.error('Error status:', error.status);
+        console.error('Error message:', error.message);
+
+        // Mostrar más información del error
+        if (error.status === 400) {
+          Toast.show('Credenciales inválidas', {
+            position: Toast.positions.CENTER,
+          });
+        } else if (error.status === 500) {
+          Toast.show('Error del servidor', {
+            position: Toast.positions.CENTER,
+          });
+        } else if (error.message && error.message.includes('Network')) {
+          Toast.show('Error de conexión. Verifica tu red.', {
+            position: Toast.positions.CENTER,
+          });
+        } else {
+          Toast.show('Usuario o contraseña incorrectos', {
+            position: Toast.positions.CENTER,
+          });
+        }
       }
     },
   });

@@ -1,7 +1,10 @@
 export const ENV = {
-  API_URL: 'http://127.0.0.1:1337/api',
+  API_URL: 'https://organic-xylophone-w4x4p9v7q7xhgj9r-1337.app.github.dev/api',
+  //http://127.0.0.1:1337/api (local)
+  //http://172.18.0.2:1337/api (container)
   //168.176.25.36 u
   //192.168.10.32 casa
+  //https://organic-xylophone-w4x4p9v7q7xhgj9r-1337.app.github.dev/api api
   ENDPOINTS: {
     REGISTER: 'auth/local/register',
     LOGIN: 'auth/local',
