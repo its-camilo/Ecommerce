@@ -10,6 +10,11 @@ RUN apt-get update && apt-get install -y \
     build-essential \
     python3 \
     python3-pip \
+    net-tools \
+    iproute2 \
+    iputils-ping \
+    dnsutils \
+    netcat \
     && rm -rf /var/lib/apt/lists/*
 
 # Install global npm packages that might be needed
