@@ -1,0 +1,41 @@
+{
+  "name": "Ecommerce React Native + Strapi",
+  "dockerComposeFile": "docker-compose.yml",
+  "service": "app",
+  "workspaceFolder": "/workspace",
+  "shutdownAction": "stopCompose",
+  "forwardPorts": [8081, 1337],
+  "portsAttributes": {
+    "8081": {
+      "label": "React Native App",
+      "onAutoForward": "notify"
+    },
+    "1337": {
+      "label": "Strapi Server",
+      "onAutoForward": "notify"
+    }
+  },
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "ms-vscode.vscode-typescript-next",
+        "esbenp.prettier-vscode",
+        "bradlc.vscode-tailwindcss",
+        "ms-vscode.vscode-json",
+        "ms-vsliveshare.vsliveshare",
+        "formulahendry.auto-rename-tag",
+        "christian-kohler.path-intellisense",
+        "ms-vscode.vscode-eslint"
+      ],
+      "settings": {
+        "typescript.preferences.quoteStyle": "single",
+        "editor.defaultFormatter": "esbenp.prettier-vscode",
+        "editor.formatOnSave": true,
+        "editor.codeActionsOnSave": {
+          "source.fixAll.eslint": true
+        }
+      }
+    }
+  },
+  "postCreateCommand": "npm install && cd app && npm install && cd ../server && npm install"
+}
