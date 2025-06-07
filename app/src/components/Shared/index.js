@@ -5,3 +5,5 @@ export * from './MyStatusBar';
 export * from './ProductBanners';
 
 export * from './GridProducts';
+
+export * from './LoadingScreen';
