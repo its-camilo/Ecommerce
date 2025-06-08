@@ -39,7 +39,52 @@ async function searchProduct(text) {
   }
 }
 
+async function getProductById(id) {
+  try {
+    const populateFilter = `populate=*`;
+
+    // First try with the provided ID (could be numeric ID or documentId)
+    const url = `${ENV.API_URL}/${ENV.ENDPOINTS.PRODUCTS}/${id}?${populateFilter}`;
+    const response = await fetch(url);
+
+    if (response.status === 200) {
+      return await response.json();
+    }
+
+    // If that fails and the ID is numeric, try to find the product by numeric ID
+    // and then fetch using its documentId
+    if (response.status === 404 && !isNaN(id)) {
+      console.log(
+        `Product with ID ${id} not found directly, searching in product list...`
+      );
+
+      // Get all products and find the one with matching numeric ID
+      const allProductsUrl = `${ENV.API_URL}/${ENV.ENDPOINTS.PRODUCTS}?${populateFilter}`;
+      const allProductsResponse = await fetch(allProductsUrl);
+
+      if (allProductsResponse.status === 200) {
+        const allProductsData = await allProductsResponse.json();
+        const targetProduct = allProductsData.data.find(
+          product => product.id === parseInt(id)
+        );
+
+        if (targetProduct) {
+          // Return the product data directly since we already have it with populate
+          return { data: targetProduct };
+        }
+      }
+    }
+
+    // If all attempts fail, throw the original error
+    throw response;
+  } catch (error) {
+    console.error(`Error fetching product with ID ${id}:`, error);
+    throw error;
+  }
+}
+
 export const productCtrl = {
   getLatestPublished,
   search: searchProduct,
+  getById: getProductById,
 };
