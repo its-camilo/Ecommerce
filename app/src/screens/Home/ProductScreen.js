@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import { productCtrl } from '@/src/api';
 import { forEach } from 'lodash';
 import { ENV } from '../../utils';
-import { LoadingScreen } from '@/src/components/Shared';
+import { LoadingScreen, Separator } from '@/src/components/Shared';
 import { Product } from '@/src/components/Product';
 
 export function ProductScreen(props) {
@@ -53,7 +53,16 @@ export function ProductScreen(props) {
           <>
             <Product.Title text={product.title} />
             <Product.CarouselImages images={images} />
-            <Product.Price price={product.price} discount={product.discount} />
+
+            <View>
+              <Product.Price
+                price={product.price}
+                discount={product.discount}
+              />
+              <Separator height={30} />
+              <Product.Characteristics text={product.characteristics} />
+              <Separator height={70} />
+            </View>
           </>
         )}
       </View>
