@@ -107,7 +107,10 @@ export function ProductBanners(props) {
             : urlImage;
 
           return (
-            <Pressable key={index} onPress={() => goToProduct(item.product.id)}>
+            <Pressable
+              key={index}
+              onPress={() => goToProduct(item.product.documentId)}
+            >
               <Image
                 source={{ uri: fullImageUrl }}
                 style={styles.carousel}

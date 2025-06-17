@@ -15,7 +15,9 @@ export function Product(props) {
     : urlImage;
 
   const goToProduct = () => {
-    navigation.navigate(screensName.home.product, { productId: product.id });
+    navigation.navigate(screensName.home.product, {
+      productId: product.documentId,
+    });
   };
 
   return (

@@ -24,6 +24,12 @@ export function ProductScreen(props) {
     try {
       const response = await productCtrl.getById(productId);
       console.log('Product fetched:', response);
+      console.log('Product ID from params:', productId);
+      console.log('Product ID from response:', response.data.id);
+      console.log(
+        'Product documentId from response:',
+        response.data.documentId
+      );
       setProduct(response.data);
       const mainImage = response.data.main_image.url;
       const images = response.data.images;

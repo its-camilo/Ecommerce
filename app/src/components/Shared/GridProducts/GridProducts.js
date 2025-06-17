@@ -15,7 +15,7 @@ export function GridProducts(props) {
           const product = item;
 
           product.id = item.id;
-          return <Product key={product.id} product={product} />;
+          return <Product key={product.documentId} product={product} />;
         })}
       </View>
     </View>
