@@ -12,7 +12,8 @@
     },
     "1337": {
       "label": "Strapi Server",
-      "onAutoForward": "notify"
+      "onAutoForward": "notify",
+      "visibility": "public"
     }
   },
   "customizations": {
