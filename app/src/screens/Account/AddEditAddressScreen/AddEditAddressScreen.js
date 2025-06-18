@@ -22,6 +22,7 @@ export function AddEditAddressScreen(props) {
   const { user } = useAuth();
 
   const addressId = params?.addressId;
+  const [addressData, setAddressData] = useState(null); // Almacenar los datos completos de la dirección
 
   //const addressId = addressid ? parseInt(addressid) - 1 : null;
   const [screenTitle, setScreenTitle] = useState('Crear dirección');
@@ -48,8 +49,9 @@ export function AddEditAddressScreen(props) {
     validateOnChange: false,
     onSubmit: async formValue => {
       try {
-        if (addressId) {
-          await addressCtrl.update(addressId, formValue);
+        if (addressId && addressData) {
+          // Pasar los datos completos de la dirección para obtener el documentId correcto
+          await addressCtrl.update(addressData, formValue);
           Toast.show('Dirección actualizada correctamente', {
             position: Toast.positions.CENTER,
           });
@@ -71,16 +73,28 @@ export function AddEditAddressScreen(props) {
   });
 
   const retriveAddress = async () => {
-    const response = await addressCtrl.get(addressId);
+    try {
+      console.log('Getting address with ID:', addressId);
+      const response = await addressCtrl.get(addressId);
+      console.log('Address response:', response);
 
-    await formik.setFieldValue('title', response.title);
-    await formik.setFieldValue('name', response.name);
-    await formik.setFieldValue('address', response.address);
-    await formik.setFieldValue('postal_code', response.postal_code);
-    await formik.setFieldValue('city', response.city);
-    await formik.setFieldValue('state', response.state);
-    await formik.setFieldValue('country', response.country);
-    await formik.setFieldValue('phone', response.phone);
+      // Almacenar los datos completos de la dirección
+      setAddressData(response);
+
+      await formik.setFieldValue('title', response.title);
+      await formik.setFieldValue('name', response.name);
+      await formik.setFieldValue('address', response.address);
+      await formik.setFieldValue('postal_code', response.postal_code);
+      await formik.setFieldValue('city', response.city);
+      await formik.setFieldValue('state', response.state);
+      await formik.setFieldValue('country', response.country);
+      await formik.setFieldValue('phone', response.phone);
+    } catch (error) {
+      console.error('Error getting address:', error);
+      Toast.show('Error al cargar la dirección', {
+        position: Toast.positions.CENTER,
+      });
+    }
   };
 
   return (

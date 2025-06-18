@@ -17,20 +17,21 @@ async function getAllAddresses(userId) {
 }
 
 async function getAddressById(addressId) {
-  //:''v
   try {
-    x = parseInt(addressId) - 1;
-    const filters = `filters[id][$eq]=${x}`;
+    console.log('Getting address by ID:', addressId);
 
-    const url = `${ENV.API_URL}/${ENV.ENDPOINTS.ADDRESSES}/${addressId}`; //da error 404
+    const url = `${ENV.API_URL}/${ENV.ENDPOINTS.ADDRESSES}/${addressId}`;
+    console.log('Get address URL:', url);
 
     const response = await authFetch(url);
 
     if (response.status !== 200) throw response;
     const result = await response.json();
+    console.log('Get address result:', result);
 
-    return { ...result.data.attributes, id: result.data.id };
+    return result.data;
   } catch (error) {
+    console.error('Error in getAddressById:', error);
     throw error;
   }
 }
@@ -61,10 +62,21 @@ async function createAddress(userId, data) {
   }
 }
 
-async function updateAddress(addressId, data) {
-  //:''v
+async function updateAddress(address, data) {
   try {
+    console.log('Updating address:', address, 'with data:', data);
+
+    // En la nueva versión de Strapi, usar documentId si está disponible, sino usar id
+    const addressId = address.documentId || address.id;
+    console.log('Using ID for update:', addressId);
+
+    if (!addressId) {
+      console.error('No valid ID found in address:', address);
+      throw new Error('No valid ID found for update');
+    }
+
     const url = `${ENV.API_URL}/${ENV.ENDPOINTS.ADDRESSES}/${addressId}`;
+    console.log('Update URL:', url);
 
     const params = {
       method: 'PUT',
@@ -79,26 +91,65 @@ async function updateAddress(addressId, data) {
     if (response.status !== 200 && response.status !== 201) throw response;
     return await response.json();
   } catch (error) {
+    console.error('Error in updateAddress:', error);
     throw error;
   }
 }
 
-async function deleteAddress(addressId) {
+async function deleteAddress(address) {
   try {
-    x = parseInt(addressId) - 1;
-    const filters = `filters[id][$eq]=${addressId}`;
+    console.log('Attempting to delete address:', address);
 
-    const url = `${ENV.API_URL}/${ENV.ENDPOINTS.ADDRESSES}/${filters}`;
+    // En la nueva versión de Strapi, usar documentId si está disponible, sino usar id
+    const addressId = address.documentId || address.id;
+    console.log('Using ID for deletion:', addressId);
+
+    if (!addressId) {
+      console.error('No valid ID found in address:', address);
+      throw new Error('No valid ID found for deletion');
+    }
+
+    const url = `${ENV.API_URL}/${ENV.ENDPOINTS.ADDRESSES}/${addressId}`;
+    console.log('Delete URL:', url);
 
     const params = {
       method: 'DELETE',
     };
 
     const response = await authFetch(url, params);
+    console.log('Delete response status:', response.status);
 
-    if (response.status !== 200 && response.status !== 201) throw response;
-    return await response.json();
+    if (response.ok) {
+      console.log('Successfully deleted address');
+      // Verificar si la respuesta tiene contenido antes de parsear JSON
+      const contentType = response.headers.get('content-type');
+      if (contentType && contentType.includes('application/json')) {
+        try {
+          return await response.json();
+        } catch (jsonError) {
+          // Si hay error al parsear JSON, pero la respuesta fue exitosa, devolver true
+          console.log(
+            'Response was successful but no valid JSON, returning success'
+          );
+          return true;
+        }
+      } else {
+        // No hay contenido JSON, operación exitosa
+        return true;
+      }
+    } else if (response.status === 404) {
+      // El item ya no existe, consideramos esto como éxito
+      console.log('Address already deleted (404), considering as success');
+      return true;
+    } else {
+      const errorText = await response.text();
+      console.error('Delete response error:', response.status, errorText);
+      throw new Error(
+        `Delete failed with status ${response.status}: ${errorText}`
+      );
+    }
   } catch (error) {
+    console.error('Error in deleteAddress:', error);
     throw error;
   }
 }

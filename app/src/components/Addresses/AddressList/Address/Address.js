@@ -12,7 +12,9 @@ export function Address(props) {
   const navigation = useNavigation();
 
   const goToUpdateAddress = () => {
-    navigation.navigate(screensName.account.addEditAddress, { addressId });
+    navigation.navigate(screensName.account.addEditAddress, {
+      addressId: address.documentId || address.id,
+    });
   };
 
   const deleteAddressAlert = () => {
@@ -34,8 +36,8 @@ export function Address(props) {
 
   const deleteAddress = async () => {
     try {
-      console.log('Eliminar dirección');
-      await addressCtrl.delete(addressId);
+      console.log('Eliminar dirección:', address);
+      await addressCtrl.delete(address); // Pasar el objeto completo de la dirección
       onReload();
       Toast.show('Dirección eliminada correctamente', {
         position: Toast.positions.CENTER,
