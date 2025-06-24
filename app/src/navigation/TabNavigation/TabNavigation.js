@@ -6,6 +6,7 @@ import { View } from 'react-native';
 import { Badge } from 'react-native-paper';
 import AwesomeIcon from 'react-native-vector-icons/FontAwesome';
 import { styles } from './TabNavigation.styles';
+import { useCart } from '@/src/hooks';
 
 const Tab = createBottomTabNavigator();
 
@@ -49,7 +50,7 @@ function setIcon(route, routeStatus) {
 
   let color = '#fff';
 
-  const totalProducts = 3;
+  const { totalProducts } = useCart();
 
   if (routeStatus.focused) {
     color = '#0098d3';
