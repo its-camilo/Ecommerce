@@ -10,7 +10,7 @@ export function CartProvider(props) {
 
   const addCart = async (productId) => {
     try {
-      await cartCtrl.addCart(productId);
+      await cartCtrl.add(productId);
     } catch (error) {
       throw error;
     }
