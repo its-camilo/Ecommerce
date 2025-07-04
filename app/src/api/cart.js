@@ -27,7 +27,17 @@ async function addCart(productId) {
   await AsyncStorage.setItem(ENV.STORAGE.CART, JSON.stringify(products));
 }
 
+async function count() {
+  const products = await getAllProducts();
+  let count = 0;
+  forEach(products, (product) => {
+    count += product.quantity;
+  });
+  return count;
+}
+
 export const cartCtrl = {
   getAll: getAllProducts,
   add: addCart,
+  count,
 };
