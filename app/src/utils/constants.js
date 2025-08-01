@@ -2,6 +2,7 @@ export const ENV = {
   API_URL: 'http://192.168.10.34:1337/api',
   //http://168.176.25.36:1337/api u
   //http://192.168.10.34:1337/api casa
+  //https://tidy-symphony-2b6312be0e.strapiapp.com/api strapi cloud
   //https://organic-xylophone-w4x4p9v7q7xhgj9r-1337.app.github.dev/api codespaces
   ENDPOINTS: {
     REGISTER: 'auth/local/register',
@@ -11,7 +12,7 @@ export const ENV = {
     ADDRESSES: 'addresses',
     HOME_BANNERS: 'home-banners',
     PRODUCTS: 'products',
-    WISHLIST: "wishlists",
+    WISHLIST: 'wishlists',
   },
   STORAGE: {
     TOKEN: 'token',
