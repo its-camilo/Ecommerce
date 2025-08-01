@@ -66,7 +66,13 @@ export function CartScreen() {
                 selectedAddress={selectedAddress}
                 setSelectedAddress={setSelectedAddress}
               />
-              {selectedAddress && <Text>Pago</Text>}
+              {selectedAddress && (
+                <Cart.Payment
+                  totalPayment={totalPayment}
+                  selectedAddress={selectedAddress}
+                  products={products}
+                />
+              )}
             </View>
           </KeyboardAwareScrollView>
         )}

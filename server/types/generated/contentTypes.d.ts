@@ -644,7 +644,7 @@ export interface ApiOrderOrder extends Struct.CollectionTypeSchema {
     singularName: 'order';
   };
   options: {
-    draftAndPublish: true;
+    draftAndPublish: false;
   };
   attributes: {
     addressShipping: Schema.Attribute.JSON & Schema.Attribute.Required;

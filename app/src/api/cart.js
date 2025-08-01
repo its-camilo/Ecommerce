@@ -86,6 +86,10 @@ async function decreaseProduct(productId) {
   }
 }
 
+async function deleteAll() {
+  await AsyncStorage.removeItem(ENV.STORAGE.CART);
+}
+
 export const cartCtrl = {
   getAll: getAllProducts,
   add: addCart,
@@ -93,4 +97,5 @@ export const cartCtrl = {
   delete: deleteProduct,
   increaseProduct,
   decreaseProduct,
+  deleteAll,
 };

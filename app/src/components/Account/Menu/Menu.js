@@ -11,23 +11,6 @@ export function Menu() {
 
   const { logout } = useAuth();
 
-  const alertLogout = () => {
-    Alert.alert(
-      'Cerrar sesión',
-      '¿Estás seguro de que quieres cerrar sesión?',
-      [
-        {
-          text: 'No',
-        },
-        {
-          text: 'Si',
-          onPress: () => console.log('Cerrar sesión'),
-        },
-      ],
-      { cancelable: false }
-    );
-  };
-
   return (
     <>
       <List.Section>
@@ -71,7 +54,7 @@ export function Menu() {
           description="Cierra sesión de tu cuenta"
           descriptionStyle={{ color: '#000' }}
           left={props => <List.Icon {...props} icon="logout" color="#000" />}
-          onPress={alertLogout}
+          onPress={logout}
         />
       </List.Section>
     </>

@@ -7,8 +7,9 @@
         "displayName": "Order"
     },
     "options": {
-        "draftAndPublish": true
+        "draftAndPublish": false
     },
+    "pluginOptions": {},
     "attributes": {
         "totalPayment": {
             "type": "decimal",

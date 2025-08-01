@@ -70,8 +70,13 @@ export function CartProvider(props) {
     }
   };
 
-  const emptyCart = () => {
-    //
+  const emptyCart = async () => {
+    try {
+      cartCtrl.deleteAll();
+      onReload();
+    } catch (error) {
+      throw error;
+    }
   };
 
   const data = {
