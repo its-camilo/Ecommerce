@@ -8,7 +8,7 @@ export function ProductList(props) {
 
   return (
     <View>
-      <Text style={styles.title}>Products:</Text>
+      <Text style={styles.title}>Productos</Text>
 
       {map(products, product => (
         <Product key={product.id} product={product} />

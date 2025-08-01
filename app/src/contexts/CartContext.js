@@ -43,16 +43,31 @@ export function CartProvider(props) {
     }
   };
 
-  const increaseProduct = () => {
-    //
+  const increaseProduct = async (productId) => {
+    try {
+      cartCtrl.increaseProduct(productId);
+      onReload();
+    } catch (error) {
+      throw error;
+    }
   };
 
-  const decreaseProduct = () => {
-    //
+  const decreaseProduct = async (productId) => {
+    try {
+      cartCtrl.decreaseProduct(productId);
+      onReload();
+    } catch (error) {
+      throw error;
+    }
   };
 
-  const deleteProduct = () => {
-    //
+  const deleteProduct = async (productId) => {
+    try {
+      await cartCtrl.delete(productId);
+      onReload();
+    } catch (error) {
+      throw error;
+    }
   };
 
   const emptyCart = () => {

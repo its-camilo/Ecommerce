@@ -6,12 +6,25 @@ import { useCart } from '@/src/hooks';
 
 export function Product(props) {
   const { product } = props;
+  const { deleteProduct, increaseProduct, decreaseProduct } = useCart();
 
   // Construir la URL de la imagen usando la misma lógica que en la wishlist
   const urlImage = product?.main_image?.url;
   const fullImageUrl = urlImage?.startsWith('/')
     ? `${ENV.API_URL.replace('/api', '')}${urlImage}`
     : urlImage;
+
+  const onDeleteProduct = () => {
+    deleteProduct(product.id);
+  };
+
+  const onIncreaseProduct = () => {
+    increaseProduct(product.id);
+  };
+
+  const onDecreaseProduct = () => {
+    decreaseProduct(product.id);
+  };
 
   return (
     <View style={styles.container}>
@@ -47,6 +60,7 @@ export function Product(props) {
               size={19}
               iconColor="#fff"
               style={styles.btnQuantity}
+              onPress={onDecreaseProduct}
             />
             <TextInput
               value={product.quantity.toString()}
@@ -57,11 +71,16 @@ export function Product(props) {
               size={19}
               iconColor="#fff"
               style={styles.btnQuantity}
+              onPress={onIncreaseProduct}
             />
             <View />
           </View>
 
-          <Button mode="contained" style={styles.btnDelete}>
+          <Button
+            mode="contained"
+            style={styles.btnDelete}
+            onPress={onDeleteProduct}
+          >
             Eliminar
           </Button>
         </View>
