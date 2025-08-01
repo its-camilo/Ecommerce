@@ -1,5 +1,5 @@
 export const ENV = {
-  API_URL: 'http://192.168.10.34:1337/api',
+  API_URL: 'https://tidy-symphony-2b6312be0e.strapiapp.com/api',
   //http://168.176.25.36:1337/api u
   //http://192.168.10.34:1337/api casa
   //https://tidy-symphony-2b6312be0e.strapiapp.com/api strapi cloud
