@@ -30,7 +30,7 @@ async function addCart(productId) {
 async function count() {
   const products = await getAllProducts();
   let count = 0;
-  forEach(products, (product) => {
+  forEach(products, product => {
     count += product.quantity;
   });
   return count;
@@ -45,12 +45,16 @@ async function deleteProduct(productId) {
 async function increaseProduct(productId) {
   try {
     const products = await getAllProducts();
-    map(products, (product) => {
+    const updatedProducts = products.map(product => {
       if (product.id === productId) {
-        return (product.quantity += 1);
+        return { ...product, quantity: product.quantity + 1 };
       }
+      return product;
     });
-    await AsyncStorage.setItem(ENV.STORAGE.CART, JSON.stringify(products));
+    await AsyncStorage.setItem(
+      ENV.STORAGE.CART,
+      JSON.stringify(updatedProducts)
+    );
   } catch (error) {
     throw error;
   }
@@ -59,16 +63,24 @@ async function increaseProduct(productId) {
 async function decreaseProduct(productId) {
   try {
     const products = await getAllProducts();
-    map(products, (product) => {
-      if (product.id === productId) {
-        if (product.quantity > 1) {
-          return (product.quantity -= 1);
-        } else {
-          return deleteProduct(productId);
+    const targetProduct = products.find(product => product.id === productId);
+
+    if (!targetProduct) return;
+
+    if (targetProduct.quantity > 1) {
+      const updatedProducts = products.map(product => {
+        if (product.id === productId) {
+          return { ...product, quantity: product.quantity - 1 };
         }
-      }
-    });
-    await AsyncStorage.setItem(ENV.STORAGE.CART, JSON.stringify(products));
+        return product;
+      });
+      await AsyncStorage.setItem(
+        ENV.STORAGE.CART,
+        JSON.stringify(updatedProducts)
+      );
+    } else {
+      await deleteProduct(productId);
+    }
   } catch (error) {
     throw error;
   }

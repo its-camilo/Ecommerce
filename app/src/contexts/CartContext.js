@@ -43,25 +43,25 @@ export function CartProvider(props) {
     }
   };
 
-  const increaseProduct = async (productId) => {
+  const increaseProduct = async productId => {
     try {
-      cartCtrl.increaseProduct(productId);
+      await cartCtrl.increaseProduct(productId);
       onReload();
     } catch (error) {
       throw error;
     }
   };
 
-  const decreaseProduct = async (productId) => {
+  const decreaseProduct = async productId => {
     try {
-      cartCtrl.decreaseProduct(productId);
+      await cartCtrl.decreaseProduct(productId);
       onReload();
     } catch (error) {
       throw error;
     }
   };
 
-  const deleteProduct = async (productId) => {
+  const deleteProduct = async productId => {
     try {
       await cartCtrl.delete(productId);
       onReload();
