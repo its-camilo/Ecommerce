@@ -8,6 +8,7 @@ import { useAuth } from '../../../hooks';
 import Toast from 'react-native-root-toast';
 import { orderCtrl } from '../../../api';
 import { LoadingScreen } from '@/src/components/Shared';
+import { OrderList } from '@/src/components/Orders';
 
 export function OrdersScreen() {
   const [orders, setOrders] = useState(null);
@@ -33,13 +34,18 @@ export function OrdersScreen() {
 
   return (
     <Layout.Basic textTitleCenter="Pedidos">
-      {!orders ? (
-        <LoadingScreen text="Cargando pedidos" />
-      ) : size(orders) === 0 ? (
-        <Text>No tienes pedidos</Text>
-      ) : (
-        <Text>Mis pedidos</Text>
-      )}
+      <View style={styles.container}>
+        {!orders ? (
+          <LoadingScreen text="Cargando pedidos" />
+        ) : size(orders) === 0 ? (
+          <Text style={styles.noOrders}>No tienes pedidos</Text>
+        ) : (
+          <>
+            <Text style={styles.title}>Mis pedidos</Text>
+            <OrderList orders={orders} />
+          </>
+        )}
+      </View>
     </Layout.Basic>
   );
 }

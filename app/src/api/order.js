@@ -38,7 +38,37 @@ async function createOrder(orderData) {
   }
 }
 
+async function getOrderById(orderId) {
+  try {
+    const url = `${ENV.API_URL}/${ENV.ENDPOINTS.ORDERS}/${orderId}`;
+    console.log('🔍 Fetching order:', url);
+
+    const response = await authFetch(url);
+    console.log('📡 Response status:', response.status);
+
+    if (!response.ok) {
+      const errorText = await response.text();
+      console.error('❌ Order fetch error:', errorText);
+
+      // Handle 404 gracefully
+      if (response.status === 404) {
+        return null;
+      }
+
+      throw new Error(errorText || 'Order not found');
+    }
+
+    const data = await response.json();
+    console.log('✅ Order data received:', data);
+    return data;
+  } catch (error) {
+    console.error('🚨 getOrderById error:', error);
+    throw error;
+  }
+}
+
 export const orderCtrl = {
   getAll,
   create: createOrder,
+  getById: getOrderById,
 };
