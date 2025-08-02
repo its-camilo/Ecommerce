@@ -1,40 +1,55 @@
 import { ENV } from '../utils';
 import { authFetch } from '../lib';
+import { safeResponseHandler, retryHandler } from '../utils';
 
 async function getMe() {
-  try {
-    const url = `${ENV.API_URL}/${ENV.ENDPOINTS.USERS_ME}`;
+  return await retryHandler.executeWithRetry(
+    async () => {
+      const url = `${ENV.API_URL}/${ENV.ENDPOINTS.USERS_ME}`;
+      const response = await authFetch(url);
 
-    const response = await authFetch(url);
+      // Usar el handler seguro de respuestas
+      await safeResponseHandler.handleResponse(
+        response,
+        'obtener información del usuario'
+      );
 
-    if (response.status !== 200) throw response;
-
-    return await response.json();
-  } catch (error) {
-    throw error;
-  }
+      return await safeResponseHandler.readJson(response);
+    },
+    'obtener información del usuario',
+    retryHandler.getConfigForOperation('user')
+  );
 }
 
 async function updateUser(userId, formData) {
-  try {
-    const url = `${ENV.API_URL}/${ENV.ENDPOINTS.USERS}/${userId}`;
+  return await retryHandler.executeWithRetry(
+    async () => {
+      const url = `${ENV.API_URL}/${ENV.ENDPOINTS.USERS}/${userId}`;
 
-    const params = {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(formData),
-    };
+      const params = {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      };
 
-    const response = await authFetch(url, params);
+      console.log('🔄 Actualizando usuario:', userId, formData);
+      const response = await authFetch(url, params);
 
-    if (response.status !== 200) throw response;
+      // Usar el handler seguro de respuestas
+      await safeResponseHandler.handleResponse(
+        response,
+        'actualizar el usuario'
+      );
 
-    return await response.json();
-  } catch (error) {
-    throw error;
-  }
+      const result = await safeResponseHandler.readJson(response);
+      console.log('✅ Usuario actualizado correctamente');
+      return result;
+    },
+    'actualizar usuario',
+    retryHandler.getConfigForOperation('user')
+  );
 }
 
 export const userCtrl = {

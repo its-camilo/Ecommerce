@@ -16,18 +16,26 @@ export function AuthProvider(props) {
   }, []);
 
   const retrieveSession = async () => {
-    const token = await storageCtrl.getToken();
+    try {
+      const token = await storageCtrl.getToken();
 
-    if (!token) {
-      logout();
+      if (!token) {
+        logout();
+        setLoading(false);
+        return;
+      }
+
+      if (fn.hasTokenExpired(token)) {
+        logout();
+        setLoading(false);
+      } else {
+        await login(token);
+      }
+    } catch (error) {
+      console.error('Error al recuperar sesión:', error);
+      // En caso de cualquier error, hacer logout por seguridad
+      await logout();
       setLoading(false);
-      return;
-    }
-
-    if (fn.hasTokenExpired(token)) {
-      logout();
-    } else {
-      await login(token);
     }
   };
 
@@ -41,7 +49,16 @@ export function AuthProvider(props) {
       setLoading(false);
       //console.log('response', response);
     } catch (error) {
-      console.error(error);
+      console.error('Error en login:', error);
+      // Si hay error al obtener usuario (ej: 401), hacer logout automático
+      if (
+        error.message?.includes('Authentication expired') ||
+        error.message?.includes('401')
+      ) {
+        console.log('🔑 Error de autenticación, haciendo logout automático...');
+        await logout();
+      }
+      setLoading(false);
     }
   };
 
