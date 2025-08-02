@@ -13,6 +13,7 @@ export const ENV = {
     HOME_BANNERS: 'home-banners',
     PRODUCTS: 'products',
     WISHLIST: 'wishlists',
+    ORDERS: 'orders',
   },
   STORAGE: {
     TOKEN: 'token',
