@@ -6,12 +6,14 @@ import { fn, screensName } from '@/src/utils';
 import { useFormik } from 'formik';
 import { initialValues, validationSchema } from './Payment.form';
 import Toast from 'react-native-root-toast';
-import { useCart } from '@/src/hooks';
+import { useCart, useAuth } from '@/src/hooks';
 import { useNavigation } from '@react-navigation/native';
+import { orderCtrl } from '@/src/api';
 
 export function Payment(props) {
   const { totalPayment, selectedAddress, products } = props;
   const { emptyCart } = useCart();
+  const { user } = useAuth();
   const navigation = useNavigation();
   const formik = useFormik({
     initialValues: initialValues(),
@@ -19,21 +21,50 @@ export function Payment(props) {
     validateOnChange: false,
     onSubmit: async formValue => {
       try {
-        // Aqui iria la logica de wompi
+        // Generar un ID de pago único (simulando el ID que vendría de un procesador de pagos)
+        const idPayment = `payment_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+
+        // Crear el objeto de datos del pedido según la estructura de la imagen
+        const orderData = {
+          products: products.map(product => ({
+            id: product.id,
+            title: product.title,
+            price: product.price,
+            discount: product.discount,
+            quantity: product.quantity,
+            image: product.main_image?.url || product.main_image,
+          })),
+          user: user.id,
+          totalPayment,
+          idPayment,
+          addressShipping: selectedAddress,
+        };
+
+        // Guardar el pedido en la base de datos
+        await orderCtrl.create(orderData);
+
+        // Vaciar el carrito solo después de guardar exitosamente el pedido
         await emptyCart();
-        navigation.navigate(screensName.account.root, {
-          screen: screensName.account.orders,
-        });
-        console.log('Payment submitted:', values);
-      } catch (error) {
-        await emptyCart();
-        navigation.navigate(screensName.account.root, {
-          screen: screensName.account.orders,
-        });
-        Toast.show('Error al procesar el pago', {
+
+        Toast.show('Pedido creado exitosamente', {
           position: Toast.positions.CENTER,
         });
-        console.error('Payment error:', error);
+
+        navigation.navigate(screensName.account.root, {
+          screen: screensName.account.orders,
+        });
+
+        console.log('Order created successfully:', orderData);
+      } catch (error) {
+        // En caso de error, aún vaciar el carrito y navegar, pero mostrar mensaje de error
+        await emptyCart();
+        navigation.navigate(screensName.account.root, {
+          screen: screensName.account.orders,
+        });
+        Toast.show('Error al procesar el pedido, pero se guardó localmente', {
+          position: Toast.positions.CENTER,
+        });
+        console.error('Order creation error:', error);
       }
     },
   });

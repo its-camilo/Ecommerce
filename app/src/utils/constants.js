@@ -14,6 +14,7 @@ export const ENV = {
     PRODUCTS: 'products',
     WISHLIST: 'wishlists',
     ORDERS: 'orders',
+    PAYMENT_ORDER: 'payment-order',
   },
   STORAGE: {
     TOKEN: 'token',

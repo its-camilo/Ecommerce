@@ -22,40 +22,23 @@ export default factories.createCoreController(
   ({ strapi }) => ({
     async paymentOrder(ctx) {
       console.log('Ok'); //cuando se llama al endpoint sale ese log en el server
-      const { token, products, userId, addressShipping } = ctx.request.body; //no se sabe si token va v: por que es de stripe
+      const { products, user: userId, totalPayment, idPayment, addressShipping } = ctx.request.body;
 
-      let totalPayment = 0;
+      // Calcular el total de pago si no viene del frontend (por seguridad)
+      let calculatedTotalPayment = 0;
       products.forEach(product => {
         const priceTemp = calcDiscountPrice(product.price, product.discount);
-        totalPayment += Number(priceTemp) * product.quantity;
+        calculatedTotalPayment += Number(priceTemp) * product.quantity;
       });
 
-      //aca se comunica con stripe o lo que corresponda
-
-      /*//lo que se guarda en la base de datos
-        const data = {
-            products,
-            user: userId,
-            totalPayment,
-            //idPayment: charge.id, lo creamos nosotros porque no hay stripe
-            addressShipping
-        };
-
-        const model = strapi.contentTypes['api::order.order'];
-        const validData = await strapi.entityValidator.validateEntityCreation(
-            model, 
-            data
-        );
-
-        const entry = await strapi.db.query("api::order.order").create({data: validData,})
-
-        return entry;*/
+      // Usar el total calculado en el servidor por seguridad
+      const finalTotalPayment = calculatedTotalPayment;
 
       const orderData = {
         products,
         user: userId,
-        totalPayment,
-        //idPayment: charge.id, lo creamos nosotros porque no hay stripe
+        totalPayment: finalTotalPayment,
+        idPayment: idPayment || `payment_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`,
         addressShipping,
       };
 
