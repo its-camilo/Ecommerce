@@ -13,8 +13,6 @@ export function BasicLayout(props) {
   } = props;
 
   const navigation = useNavigation();
-
-  // Establecer el título del documento (siempre será "Ecommerce App")
   useDocumentTitle();
 
   const goBack = () => {

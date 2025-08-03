@@ -7,8 +7,6 @@ import logo from '../../../../assets/images/logo.png';
 
 export function AuthScreen() {
   const [showLogin, setShowLogin] = useState(true);
-
-  // Establecer el título del documento (siempre será "Ecommerce App")
   useDocumentTitle();
 
   const onShowLoginRegister = () => setShowLogin(prevState => !prevState);

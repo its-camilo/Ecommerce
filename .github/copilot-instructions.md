@@ -1,4 +1,4 @@
-# Ecommerce App - AI Coding Instructions
+# Ecommerce - AI Coding Instructions
 
 ## Architecture Overview
 

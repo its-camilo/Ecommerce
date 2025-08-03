@@ -3,7 +3,7 @@ import { Platform } from 'react-native';
 import { useFocusEffect } from '@react-navigation/native';
 
 export function useDocumentTitle() {
-  const FIXED_TITLE = 'Ecommerce App';
+  const FIXED_TITLE = 'Ecommerce';
 
   // Función para actualizar el título
   const updateTitle = React.useCallback(() => {
@@ -60,6 +60,6 @@ export function useDocumentTitle() {
 
 export function setDocumentTitle() {
   if (Platform.OS === 'web' && typeof document !== 'undefined') {
-    document.title = 'Ecommerce App';
+    document.title = 'Ecommerce';
   }
 }
