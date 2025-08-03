@@ -40,33 +40,43 @@ async function createOrder(orderData) {
 
 async function getOrderById(orderId) {
   try {
-    const url = `${ENV.API_URL}/${ENV.ENDPOINTS.ORDERS}/${orderId}`;
-    console.log('🔍 Fetching order:', url);
+    if (!orderId) {
+      throw new Error('Order ID is required');
+    }
 
+    // Usar filtros como en getAll en lugar de URL directa, y agregar populate
+    const orderFilter = `filters[id][$eq]=${orderId}`;
+    const populateFilter = `populate=*`;
+    const filters = `${orderFilter}&${populateFilter}`;
+    const url = `${ENV.API_URL}/${ENV.ENDPOINTS.ORDERS}?${filters}`;
+
+    console.log('🔍 Fetching order with URL:', url);
     const response = await authFetch(url);
     console.log('📡 Response status:', response.status);
 
     if (!response.ok) {
-      const errorText = await response.text();
-      console.error('❌ Order fetch error:', errorText);
-
-      // Handle 404 gracefully
+      // Handle 404 gracefully - order not found
       if (response.status === 404) {
+        console.log('❌ Order not found (404)');
         return null;
       }
-
-      throw new Error(errorText || 'Order not found');
+      throw response;
     }
 
-    const data = await response.json();
-    console.log('✅ Order data received:', data);
-    return data;
+    const result = await response.json();
+    console.log('✅ Order data received:', result);
+
+    // Strapi devuelve un array con filtros, tomar el primer elemento si existe
+    if (result.data && Array.isArray(result.data)) {
+      return result.data.length > 0 ? { data: result.data[0] } : null;
+    }
+
+    return result;
   } catch (error) {
-    console.error('🚨 getOrderById error:', error);
+    console.log('💥 Error fetching order:', error);
     throw error;
   }
 }
-
 export const orderCtrl = {
   getAll,
   create: createOrder,
