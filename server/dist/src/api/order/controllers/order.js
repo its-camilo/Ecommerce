@@ -15,6 +15,7 @@ function calcDiscountPrice(price, discount) {
 const strapi_1 = require("@strapi/strapi");
 exports.default = strapi_1.factories.createCoreController('api::order.order', ({ strapi }) => ({
     async paymentOrder(ctx) {
+        //cuando se llama al endpoint sale ese log en el server
         const { products, user: userId, totalPayment, idPayment, addressShipping } = ctx.request.body;
         // Calcular el total de pago si no viene del frontend (por seguridad)
         let calculatedTotalPayment = 0;
