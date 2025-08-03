@@ -53,8 +53,6 @@ export function Payment(props) {
         navigation.navigate(screensName.account.root, {
           screen: screensName.account.orders,
         });
-
-        console.log('Order created successfully:', orderData);
       } catch (error) {
         // En caso de error, aún vaciar el carrito y navegar, pero mostrar mensaje de error
         await emptyCart();
@@ -64,7 +62,6 @@ export function Payment(props) {
         Toast.show('Error al procesar el pedido, pero se guardó localmente', {
           position: Toast.positions.CENTER,
         });
-        console.error('Order creation error:', error);
       }
     },
   });

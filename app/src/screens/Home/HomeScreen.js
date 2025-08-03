@@ -24,8 +24,10 @@ export function HomeScreen() {
 
       setBanners(response?.data || []);
     } catch (error) {
-      Toast.show('Error al cargar los banners', {
+      Toast.show('🚫 Error al cargar los banners', {
         position: Toast.positions.CENTER,
+        backgroundColor: '#D7263D',
+        textColor: '#fff',
       });
     }
   };
@@ -35,8 +37,10 @@ export function HomeScreen() {
       const response = await productCtrl.getLatestPublished(20);
       setProducts(response?.data || []);
     } catch (error) {
-      Toast.show('Error al cargar los productos', {
+      Toast.show('🚫 Error al cargar los productos', {
         position: Toast.positions.CENTER,
+        backgroundColor: '#D7263D',
+        textColor: '#fff',
       });
     }
   };

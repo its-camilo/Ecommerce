@@ -14,11 +14,9 @@ export function ServerHealthCheck() {
     try {
       // Verificar conectividad básica
       const connectionResult = await storageCtrl.testServerConnection();
-      console.log('🔍 Connection test:', connectionResult);
 
       // Verificar salud específica de Strapi
       const healthResult = await storageCtrl.checkStrapiHealth();
-      console.log('🏥 Health check:', healthResult);
 
       let message = '';
       let toastType = 'info';
@@ -51,7 +49,6 @@ export function ServerHealthCheck() {
         duration: Toast.durations.LONG,
       });
     } catch (error) {
-      console.error('Error en verificación del servidor:', error);
       Toast.show('Error al verificar el servidor', {
         position: Toast.positions.CENTER,
       });

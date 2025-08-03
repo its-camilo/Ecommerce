@@ -23,13 +23,17 @@ export function ChangeUserNameScreen() {
       try {
         await userCtrl.update(user.id, formvalue);
         updateUser('username', formvalue.username);
-        Toast.show('Nombre de usuario cambiado correctamente', {
+        Toast.show('👤 ¡Usuario actualizado!', {
           position: Toast.positions.CENTER,
+          backgroundColor: '#2ecc40',
+          textColor: '#fff',
         });
         navigation.goBack();
       } catch (error) {
-        Toast.show('Error al cambiar el nombre de usuario', {
+        Toast.show('❌ Error al actualizar el usuario', {
           position: Toast.positions.CENTER,
+          backgroundColor: '#D7263D',
+          textColor: '#fff',
         });
       }
     },

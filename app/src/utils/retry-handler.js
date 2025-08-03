@@ -21,40 +21,22 @@ export const retryHandler = {
 
     for (let attempt = 1; attempt <= config.maxRetries; attempt++) {
       try {
-        console.log(
-          `🔄 Intento ${attempt}/${config.maxRetries} para ${operation}`
-        );
+        // Mensaje de intento (opcional: usar logger si se desea)
         const result = await asyncFunction();
-
-        if (attempt > 1) {
-          console.log(`✅ ${operation} exitosa en intento ${attempt}`);
-        }
-
         return result;
       } catch (error) {
         lastError = error;
-
-        // Verificar si el error es reintentatble
         const isRetryable = this.isRetryableError(error, config);
-
         if (!isRetryable || attempt === config.maxRetries) {
-          console.error(
-            `❌ ${operation} falló definitivamente después de ${attempt} intentos`
-          );
+          // Mensaje de error final (opcional: usar logger si se desea)
           throw error;
         }
-
         const delay =
           config.retryDelay * Math.pow(config.backoffMultiplier, attempt - 1);
-        console.warn(
-          `⚠️ Intento ${attempt} falló para ${operation}. Reintentando en ${delay}ms...`
-        );
-        console.warn(`📄 Error: ${error.message}`);
-
+        // Mensaje de reintento (opcional: usar logger si se desea)
         await this.delay(delay);
       }
     }
-
     throw lastError;
   },
 

@@ -29,15 +29,19 @@ export function ChangeNameScreen() {
         };
 
         await userCtrl.update(user.id, userData);
-        Toast.show('Nombre y apellidos actualizados correctamente', {
+        Toast.show('🙋‍♂️ ¡Nombre actualizado!', {
           position: Toast.positions.CENTER,
+          backgroundColor: '#2ecc40',
+          textColor: '#fff',
         });
         updateUser('firstname', formValue.firstName);
         updateUser('lastname', formValue.lastName);
         navigation.goBack();
       } catch (error) {
-        Toast.show('Error al actualizar los datos', {
+        Toast.show('❌ Error al actualizar el nombre', {
           position: Toast.positions.CENTER,
+          backgroundColor: '#D7263D',
+          textColor: '#fff',
         });
       }
     },

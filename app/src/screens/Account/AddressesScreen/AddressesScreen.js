@@ -39,17 +39,13 @@ export function AddressesScreen() {
 
   const retrieveAddresses = async () => {
     const response = await addressCtrl.getAll(user.id);
-
     setAddresses(response?.data || []);
-    console.log('Respuesta completa:', response.data);
 
-    // Console.log con los IDs de las direcciones (tanto id como documentId)
     const addressIds =
       response?.data?.map(address => ({
         id: address.id,
         documentId: address.documentId,
       })) || [];
-    console.log('IDs de direcciones (id y documentId):', addressIds);
   };
 
   const goToAddAddress = () => {

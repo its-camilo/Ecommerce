@@ -36,7 +36,6 @@ export function OrderScreen(props) {
 
       setOrder(response.data || response);
     } catch (error) {
-      console.log('Error al obtener el pedido:', error);
       Toast.show('Error al obtener el pedido', {
         position: Toast.positions.CENTER,
       });

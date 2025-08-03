@@ -28,21 +28,18 @@ export function WishlistScreen() {
   const getProductsWishlist = async () => {
     try {
       const response = await wishlistCtrl.getAllProducts(user.id);
-      console.log('Productos de la wishlist:', response);
       const productTemp = [];
 
       // Access the actual data array, not the whole response object
       const wishlistItems = response.data || response;
 
       forEach(wishlistItems, item => {
-        console.log('Item de wishlist:', item);
         if (item.product) {
           productTemp.push(item.product);
         }
       });
 
       setProducts(productTemp);
-      console.log('Productos actualizados:', productTemp);
     } catch (error) {
       Toast.show('Error al obtener los productos de la lista de deseos', {
         position: Toast.positions.CENTER,

@@ -25,13 +25,17 @@ export function ChangeEmailScreen() {
       try {
         await userCtrl.update(user.id, formValue);
         updateUser(email, formValue.email);
-        Toast.show('Correo electrónico cambiado correctamente', {
+        Toast.show('📧 ¡Email actualizado con éxito!', {
           position: Toast.positions.CENTER,
+          backgroundColor: '#2ecc40',
+          textColor: '#fff',
         });
         navigation.goBack();
       } catch (error) {
-        Toast.show('Error al cambiar el correo electrónico', {
+        Toast.show('❌ Error al actualizar el email', {
           position: Toast.positions.CENTER,
+          backgroundColor: '#D7263D',
+          textColor: '#fff',
         });
       }
     },

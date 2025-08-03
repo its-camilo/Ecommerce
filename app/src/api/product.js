@@ -17,7 +17,6 @@ async function getLatestPublished(limite = 20) {
     if (response.status !== 200) throw response;
     return await response.json();
   } catch (error) {
-    console.error('Error fetching latest published products:', error);
     throw error;
   }
 }
@@ -54,10 +53,6 @@ async function getProductById(id) {
     // If that fails and the ID is numeric, try to find the product by numeric ID
     // and then fetch using its documentId
     if (response.status === 404 && !isNaN(id)) {
-      console.log(
-        `Product with ID ${id} not found directly, searching in product list...`
-      );
-
       // Get all products and find the one with matching numeric ID
       const allProductsUrl = `${ENV.API_URL}/${ENV.ENDPOINTS.PRODUCTS}?${populateFilter}`;
       const allProductsResponse = await fetch(allProductsUrl);
@@ -78,7 +73,6 @@ async function getProductById(id) {
     // If all attempts fail, throw the original error
     throw response;
   } catch (error) {
-    console.error(`Error fetching product with ID ${id}:`, error);
     throw error;
   }
 }

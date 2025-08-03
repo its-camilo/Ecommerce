@@ -1,4 +1,5 @@
 // Contador de errores 500 consecutivos
+import Toast from 'react-native-root-toast';
 let consecutiveServerErrors = 0;
 let lastServerErrorTime = null;
 const MAX_CONSECUTIVE_ERRORS = 3;
@@ -17,15 +18,16 @@ export const serverErrorTracker = {
       consecutiveServerErrors++;
       lastServerErrorTime = now;
 
-      console.warn(`⚠️ Error 500 #${consecutiveServerErrors} detectado`);
-
       // Si tenemos muchos errores consecutivos, mostrar alerta
       if (consecutiveServerErrors >= MAX_CONSECUTIVE_ERRORS) {
-        console.error('🚨 ALERTA: Múltiples errores 500 detectados');
-        console.error(
-          '🔧 El servidor Strapi parece estar experimentando problemas'
+        Toast.show(
+          `🚨 Problema sistémico detectado (${consecutiveServerErrors} errores 500 consecutivos). Por favor, intenta más tarde.`,
+          {
+            position: Toast.positions.CENTER,
+            backgroundColor: '#D7263D',
+            textColor: '#fff',
+          }
         );
-
         return {
           isSystemicIssue: true,
           errorCount: consecutiveServerErrors,
@@ -54,6 +56,5 @@ export const serverErrorTracker = {
   reset: () => {
     consecutiveServerErrors = 0;
     lastServerErrorTime = null;
-    console.log('🔄 Contador de errores del servidor reiniciado');
   },
 };

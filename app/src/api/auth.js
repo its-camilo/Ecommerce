@@ -43,17 +43,10 @@ async function login(email, password) {
         }),
       };
 
-      console.log('🔗 Intentando login en:', url);
-      console.log('📤 Datos enviados:', { identifier: email, password: '***' });
-
       const response = await fetch(url, params);
-
-      console.log('📡 Response status:', response.status);
-      console.log('📡 Response ok:', response.ok);
 
       // Obtener el texto de la respuesta para debugging
       const responseText = await response.text();
-      console.log('📄 Response body:', responseText);
 
       if (response.status !== 200) {
         let errorData;
@@ -65,7 +58,7 @@ async function login(email, password) {
           };
         }
 
-        console.error('❌ Login error details:', errorData);
+        // ...existing code...
 
         // Crear mensaje específico para error 500
         let errorMessage =

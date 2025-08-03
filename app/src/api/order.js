@@ -50,21 +50,17 @@ async function getOrderById(orderId) {
     const filters = `${orderFilter}&${populateFilter}`;
     const url = `${ENV.API_URL}/${ENV.ENDPOINTS.ORDERS}?${filters}`;
 
-    console.log('🔍 Fetching order with URL:', url);
     const response = await authFetch(url);
-    console.log('📡 Response status:', response.status);
 
     if (!response.ok) {
       // Handle 404 gracefully - order not found
       if (response.status === 404) {
-        console.log('❌ Order not found (404)');
         return null;
       }
       throw response;
     }
 
     const result = await response.json();
-    console.log('✅ Order data received:', result);
 
     // Strapi devuelve un array con filtros, tomar el primer elemento si existe
     if (result.data && Array.isArray(result.data)) {
@@ -73,7 +69,6 @@ async function getOrderById(orderId) {
 
     return result;
   } catch (error) {
-    console.log('💥 Error fetching order:', error);
     throw error;
   }
 }

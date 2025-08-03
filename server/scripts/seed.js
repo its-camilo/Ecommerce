@@ -16,17 +16,10 @@ async function seedExampleApp() {
 
   if (shouldImportSeedData) {
     try {
-      console.log('Setting up the template...');
       await importSeedData();
-      console.log('Ready to go');
     } catch (error) {
-      console.log('Could not import seed data');
-      console.error(error);
     }
   } else {
-    console.log(
-      'Seed data has already been imported. We cannot reimport unless you clear your database first.'
-    );
   }
 }
 
@@ -113,7 +106,6 @@ async function createEntry({ model, entry }) {
       data: entry,
     });
   } catch (error) {
-    console.error({ model, entry, error });
   }
 }
 
@@ -279,6 +271,5 @@ async function main() {
 }
 
 main().catch(error => {
-  console.error(error);
   process.exit(1);
 });

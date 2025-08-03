@@ -9,10 +9,6 @@ export const safeResponseHandler = {
     try {
       return await response.text();
     } catch (error) {
-      console.warn(
-        '⚠️ No se pudo leer el texto de la respuesta:',
-        error.message
-      );
       return `Error ${response.status}`;
     }
   },
@@ -24,10 +20,6 @@ export const safeResponseHandler = {
     try {
       return await response.json();
     } catch (error) {
-      console.warn(
-        '⚠️ No se pudo leer el JSON de la respuesta:',
-        error.message
-      );
       return { error: `Error ${response.status}` };
     }
   },
@@ -62,8 +54,6 @@ export const safeResponseHandler = {
 
     const errorText = await this.readText(response);
     const errorMessage = this.createErrorMessage(response.status, errorText);
-
-    console.error(`❌ Error al ${operation}:`, errorMessage);
 
     const error = new Error(errorMessage);
     error.status = response.status;

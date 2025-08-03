@@ -11,7 +11,6 @@ export function LoginForm(props) {
   const { showRegister } = props;
 
   const { login } = useAuth();
-  //console.log("useAuthData", useAuthData)
 
   const formik = useFormik({
     initialValues: initialValues(),
@@ -23,18 +22,12 @@ export function LoginForm(props) {
     onSubmit: async formValue => {
       try {
         const { email, password } = formValue;
-        console.log('Intentando login con:', email);
 
         const response = await authCtrl.login(email, password);
-        console.log('Respuesta del login:', response);
 
         login(response.jwt);
         showSuccessToast('¡Bienvenido! Has iniciado sesión correctamente.');
       } catch (error) {
-        console.error('Error en login:', error);
-        console.error('Error status:', error.status);
-        console.error('Error message:', error.message);
-
         // Usar la función helper para mostrar errores
         showServerErrorToast(error, 'iniciar sesión');
       }

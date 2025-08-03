@@ -22,8 +22,6 @@ async function addCart(productId) {
     products[objIndex].quantity = product.quantity + 1;
   }
 
-  console.log('Current cart:', products);
-
   await AsyncStorage.setItem(ENV.STORAGE.CART, JSON.stringify(products));
 }
 

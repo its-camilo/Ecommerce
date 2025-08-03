@@ -36,7 +36,6 @@ export function Address(props) {
 
   const deleteAddress = async () => {
     try {
-      console.log('Eliminar dirección:', address);
       await addressCtrl.delete(address); // Pasar el objeto completo de la dirección
       onReload();
       Toast.show('Dirección eliminada correctamente', {
@@ -44,7 +43,6 @@ export function Address(props) {
       });
       //navigation.goBack();
     } catch (error) {
-      console.log(error);
       Toast.show('Error al eliminar la dirección', {
         position: Toast.positions.CENTER,
       });

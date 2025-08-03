@@ -20,8 +20,10 @@ export function SearchScreen() {
       const response = await productCtrl.search(searchText);
       setProducts(response.data);
     } catch (error) {
-      Toast.show('Error al cargar los productos de la búsqueda', {
+      Toast.show('🔍 Error al cargar los productos de la búsqueda', {
         position: Toast.positions.CENTER,
+        backgroundColor: '#D7263D',
+        textColor: '#fff',
       });
     }
   };
@@ -31,9 +33,9 @@ export function SearchScreen() {
       {!products ? (
         <LoadingScreen text="Buscando productos" />
       ) : size(products) === 0 ? (
-          <Search.ResultNotFound searchText={searchText} />
-        ) : (
-          <GridProducts products={products} />
+        <Search.ResultNotFound searchText={searchText} />
+      ) : (
+        <GridProducts products={products} />
       )}
     </Layout.Basic>
   );

@@ -34,7 +34,6 @@ async function updateUser(userId, formData) {
         body: JSON.stringify(formData),
       };
 
-      console.log('🔄 Actualizando usuario:', userId, formData);
       const response = await authFetch(url, params);
 
       // Usar el handler seguro de respuestas
@@ -44,7 +43,6 @@ async function updateUser(userId, formData) {
       );
 
       const result = await safeResponseHandler.readJson(response);
-      console.log('✅ Usuario actualizado correctamente');
       return result;
     },
     'actualizar usuario',

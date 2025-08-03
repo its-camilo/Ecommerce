@@ -23,13 +23,6 @@ export function ProductScreen(props) {
   const getProduct = async () => {
     try {
       const response = await productCtrl.getById(productId);
-      console.log('Product fetched:', response);
-      console.log('Product ID from params:', productId);
-      console.log('Product ID from response:', response.data.id);
-      console.log(
-        'Product documentId from response:',
-        response.data.documentId
-      );
       setProduct(response.data);
       const mainImage = response.data.main_image.url;
       const images = response.data.images;
@@ -37,17 +30,13 @@ export function ProductScreen(props) {
       forEach(images, image => {
         arrayImages.push(image.url);
       });
-
       const processedImages = arrayImages.map(imageUrl => {
         return imageUrl.startsWith('/')
           ? `${ENV.API_URL.replace('/api', '')}${imageUrl}`
           : imageUrl;
       });
-
       setImages(processedImages);
-    } catch (error) {
-      console.error('Error fetching product:', error);
-    }
+    } catch (error) {}
   };
 
   return (

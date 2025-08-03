@@ -52,21 +52,25 @@ export function AddEditAddressScreen(props) {
         if (addressId && addressData) {
           // Pasar los datos completos de la dirección para obtener el documentId correcto
           await addressCtrl.update(addressData, formValue);
-          Toast.show('Dirección actualizada correctamente', {
+          Toast.show('🏠 Dirección actualizada correctamente', {
             position: Toast.positions.CENTER,
+            backgroundColor: '#2ecc40',
+            textColor: '#fff',
           });
         } else {
           await addressCtrl.create(user.id, formValue);
-          Toast.show('Dirección creada correctamente', {
+          Toast.show('🏠 Dirección creada correctamente', {
             position: Toast.positions.CENTER,
+            backgroundColor: '#2ecc40',
+            textColor: '#fff',
           });
         }
-
         navigation.goBack();
       } catch (error) {
-        console.log(error);
-        Toast.show('Error al crear la dirección', {
+        Toast.show('❌ Error al crear la dirección', {
           position: Toast.positions.CENTER,
+          backgroundColor: '#D7263D',
+          textColor: '#fff',
         });
       }
     },
@@ -74,13 +78,9 @@ export function AddEditAddressScreen(props) {
 
   const retriveAddress = async () => {
     try {
-      console.log('Getting address with ID:', addressId);
       const response = await addressCtrl.get(addressId);
-      console.log('Address response:', response);
-
       // Almacenar los datos completos de la dirección
       setAddressData(response);
-
       await formik.setFieldValue('title', response.title);
       await formik.setFieldValue('name', response.name);
       await formik.setFieldValue('address', response.address);
@@ -90,9 +90,10 @@ export function AddEditAddressScreen(props) {
       await formik.setFieldValue('country', response.country);
       await formik.setFieldValue('phone', response.phone);
     } catch (error) {
-      console.error('Error getting address:', error);
-      Toast.show('Error al cargar la dirección', {
+      Toast.show('❌ Error al cargar la dirección', {
         position: Toast.positions.CENTER,
+        backgroundColor: '#D7263D',
+        textColor: '#fff',
       });
     }
   };

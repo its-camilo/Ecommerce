@@ -21,7 +21,7 @@ export default factories.createCoreController(
   'api::order.order',
   ({ strapi }) => ({
     async paymentOrder(ctx) {
-      console.log('Ok'); //cuando se llama al endpoint sale ese log en el server
+      //cuando se llama al endpoint sale ese log en el server
       const { products, user: userId, totalPayment, idPayment, addressShipping } = ctx.request.body;
 
       // Calcular el total de pago si no viene del frontend (por seguridad)

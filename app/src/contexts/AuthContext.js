@@ -32,7 +32,6 @@ export function AuthProvider(props) {
         await login(token);
       }
     } catch (error) {
-      console.error('Error al recuperar sesión:', error);
       // En caso de cualquier error, hacer logout por seguridad
       await logout();
       setLoading(false);
@@ -41,21 +40,17 @@ export function AuthProvider(props) {
 
   const login = async token => {
     try {
-      //console.log('login', token);
       await storageCtrl.setToken(token);
       const response = await userCtrl.getMe();
 
       setUser(response);
       setLoading(false);
-      //console.log('response', response);
     } catch (error) {
-      console.error('Error en login:', error);
       // Si hay error al obtener usuario (ej: 401), hacer logout automático
       if (
         error.message?.includes('Authentication expired') ||
         error.message?.includes('401')
       ) {
-        console.log('🔑 Error de autenticación, haciendo logout automático...');
         await logout();
       }
       setLoading(false);
@@ -66,9 +61,19 @@ export function AuthProvider(props) {
     try {
       await storageCtrl.removeToken();
       setUser(null);
-    } catch (error) {
-      console.error(error);
-    }
+      if (
+        typeof window === 'undefined' ||
+        (typeof navigator !== 'undefined' &&
+          navigator.product === 'ReactNative')
+      ) {
+        const Toast = require('react-native-root-toast');
+        Toast.show('👋 Sesión cerrada', {
+          position: Toast.positions.CENTER,
+          backgroundColor: '#2196F3',
+          textColor: '#fff',
+        });
+      }
+    } catch (error) {}
   };
 
   const updateUser = (key, values) => {

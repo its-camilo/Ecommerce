@@ -25,9 +25,10 @@ export function OrdersScreen() {
       const response = await orderCtrl.getAll(user.id);
       setOrders(response.data);
     } catch (error) {
-      console.log('Order fetch error:', error); // <-- Agrega esto
-      Toast.show('Error al obtener los pedidos', {
+      Toast.show('📦 Error al obtener los pedidos', {
         position: Toast.positions.CENTER,
+        backgroundColor: '#D7263D',
+        textColor: '#fff',
       });
     }
   };
