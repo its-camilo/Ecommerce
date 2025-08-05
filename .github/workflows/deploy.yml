@@ -85,17 +85,18 @@ jobs:
         # Crear 404.html para SPA routing
         cp index.html 404.html
 
-        # Agregar script de routing fix al final del body
-        sed -i 's|</body>|<script>
-          // Fix routing for GitHub Pages
-          if (window.location.pathname.startsWith("/Ecommerce") && !window.location.pathname.endsWith("/")) {
-            if (window.location.pathname === "/Ecommerce") {
-              window.history.replaceState(null, "", "/Ecommerce/");
-            }
+        # Crear script de routing en archivo separado
+        cat > routing-fix.js << 'EOF'
+        // Fix routing for GitHub Pages
+        if (window.location.pathname.startsWith("/Ecommerce") && !window.location.pathname.endsWith("/")) {
+          if (window.location.pathname === "/Ecommerce") {
+            window.history.replaceState(null, "", "/Ecommerce/");
           }
-        </script></body>|g' index.html
+        }
+        EOF
 
-    - name: Setup Pages
+        # Insertar el script antes del cierre del body
+        sed -i 's|</body>|<script src="./routing-fix.js"></script></body>|g' index.html    - name: Setup Pages
       uses: actions/configure-pages@v4
 
     - name: Upload artifact
