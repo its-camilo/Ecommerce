@@ -44,9 +44,21 @@ jobs:
     - name: Build for web
       run: |
         cd app
-        NODE_ENV=production npx expo export --platform web
+        npx expo export --platform web --output-dir dist --public-url /Ecommerce
       env:
         NODE_ENV: production
+
+    - name: Fix asset paths
+      run: |
+        cd app/dist
+        # Crear directorio _expo en el lugar correcto
+        mkdir -p Ecommerce/_expo
+        # Mover archivos _expo al subdirectorio correcto
+        if [ -d "_expo" ]; then
+          cp -r _expo/* Ecommerce/_expo/
+        fi
+        # Actualizar referencias en index.html
+        sed -i 's|/_expo/|/Ecommerce/_expo/|g' index.html
 
     - name: Setup Pages
       uses: actions/configure-pages@v4
