@@ -29,13 +29,10 @@
       "name": "Ecommerce",
       "shortName": "Ecommerce",
       "lang": "es",
-      "scope": "/Ecommerce/",
-      "startUrl": "/Ecommerce/",
       "display": "standalone",
       "orientation": "portrait",
       "themeColor": "#000000",
-      "backgroundColor": "#ffffff",
-      "template": "./web/index.html"
+      "backgroundColor": "#ffffff"
     },
     "plugins": [
       "expo-router",
