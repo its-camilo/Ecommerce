@@ -32,7 +32,8 @@
       "display": "standalone",
       "orientation": "portrait",
       "themeColor": "#000000",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#ffffff",
+      "baseUrl": "/Ecommerce"
     },
     "plugins": [
       "expo-router",

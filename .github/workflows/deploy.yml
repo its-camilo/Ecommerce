@@ -44,7 +44,9 @@ jobs:
     - name: Build for web
       run: |
         cd app
-        npx expo export --platform web
+        NODE_ENV=production npx expo export --platform web
+      env:
+        NODE_ENV: production
 
     - name: Setup Pages
       uses: actions/configure-pages@v4
