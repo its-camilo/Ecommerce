@@ -44,21 +44,21 @@ jobs:
     - name: Build for web
       run: |
         cd app
-        npx expo export --platform web --output-dir dist --public-url /Ecommerce
+        npx expo export --platform web
       env:
         NODE_ENV: production
+        EXPO_PUBLIC_URL: /Ecommerce
 
-    - name: Fix asset paths
+    - name: Fix asset paths for GitHub Pages
       run: |
         cd app/dist
-        # Crear directorio _expo en el lugar correcto
-        mkdir -p Ecommerce/_expo
-        # Mover archivos _expo al subdirectorio correcto
-        if [ -d "_expo" ]; then
-          cp -r _expo/* Ecommerce/_expo/
-        fi
-        # Actualizar referencias en index.html
-        sed -i 's|/_expo/|/Ecommerce/_expo/|g' index.html
+        # Actualizar todas las referencias en el index.html para que apunten al subdirectorio correcto
+        sed -i 's|="/_expo/|="/Ecommerce/_expo/|g' index.html
+        sed -i 's|src="/_expo/|src="/Ecommerce/_expo/|g' index.html
+        sed -i 's|href="/_expo/|href="/Ecommerce/_expo/|g' index.html
+        # También corregir referencias en archivos JS si existen
+        find . -name "*.js" -type f -exec sed -i 's|"/_expo/|"/Ecommerce/_expo/|g' {} \;
+        find . -name "*.js" -type f -exec sed -i "s|'/_expo/|'/Ecommerce/_expo/|g" {} \;
 
     - name: Setup Pages
       uses: actions/configure-pages@v4

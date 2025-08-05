@@ -32,7 +32,12 @@
       "display": "standalone",
       "orientation": "portrait",
       "themeColor": "#000000",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#ffffff",
+      "build": {
+        "babel": {
+          "include": ["node_modules/react-native-web"]
+        }
+      }
     },
     "plugins": [
       "expo-router",
