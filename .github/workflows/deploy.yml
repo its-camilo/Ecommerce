@@ -72,6 +72,30 @@ jobs:
         find . -name "*.css" -type f -exec sed -i 's|url(/assets/|url(/Ecommerce/assets/|g' {} \;
         find . -name "*.css" -type f -exec sed -i 's|url("\/assets/|url("/Ecommerce/assets/|g' {} \;
 
+    - name: Setup SPA routing for GitHub Pages
+      run: |
+        cd app/dist
+        # Crear 404.html que redirige a index.html para SPA routing
+        cp index.html 404.html
+        # Crear directorio Ecommerce si no existe y copiar archivos allí
+        mkdir -p Ecommerce
+        cp -r * Ecommerce/ 2>/dev/null || true
+        # El index.html principal debe estar en la raíz para GitHub Pages
+        echo '<!DOCTYPE html>
+        <html>
+        <head>
+            <meta charset="utf-8">
+            <title>Redirecting...</title>
+            <script>
+                window.location.href = "/Ecommerce/";
+            </script>
+            <meta http-equiv="refresh" content="0; url=/Ecommerce/">
+        </head>
+        <body>
+            <p>Redirecting to <a href="/Ecommerce/">Ecommerce App</a>...</p>
+        </body>
+        </html>' > index.html
+
     - name: Setup Pages
       uses: actions/configure-pages@v4
 
