@@ -79,24 +79,41 @@ jobs:
     - name: Setup SPA routing for GitHub Pages
       run: |
         cd app/dist
-        # Agregar base tag al index.html para routing correcto
-        sed -i 's|<head>|<head><base href="/Ecommerce/">|g' index.html
 
-        # Crear 404.html para SPA routing
-        cp index.html 404.html
+        # Usar Python para modificar el HTML de manera más confiable
+        python3 << 'EOF'
+        import re
 
-        # Crear script de routing en archivo separado
-        cat > routing-fix.js << 'EOF'
-        // Fix routing for GitHub Pages
+        # Leer el archivo index.html
+        with open('index.html', 'r', encoding='utf-8') as f:
+            content = f.read()
+
+        # Agregar base tag
+        content = re.sub(r'<head>', '<head><base href="/Ecommerce/">', content)
+
+        # Crear script de routing
+        routing_script = '''<script>
         if (window.location.pathname.startsWith("/Ecommerce") && !window.location.pathname.endsWith("/")) {
           if (window.location.pathname === "/Ecommerce") {
             window.history.replaceState(null, "", "/Ecommerce/");
           }
         }
+        </script>'''
+
+        # Insertar script antes del cierre del body
+        content = re.sub(r'</body>', routing_script + '</body>', content)
+
+        # Escribir el archivo modificado
+        with open('index.html', 'w', encoding='utf-8') as f:
+            f.write(content)
+
+        print("HTML modificado exitosamente")
         EOF
 
-        # Insertar el script antes del cierre del body
-        sed -i 's|</body>|<script src="./routing-fix.js"></script></body>|g' index.html    - name: Setup Pages
+        # Crear 404.html para SPA routing
+        cp index.html 404.html
+
+    - name: Setup Pages
       uses: actions/configure-pages@v4
 
     - name: Upload artifact

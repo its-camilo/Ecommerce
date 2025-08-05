@@ -6,7 +6,7 @@ const config = getDefaultConfig(__dirname);
 config.resolver.platforms = ['ios', 'android', 'native', 'web'];
 config.resolver.assetExts.push('db');
 
-// Configuración específica para web y GitHub Pages
+// Configuración específica para web y GitHub Pages zi
 if (process.env.NODE_ENV === 'production') {
   config.transformer.publicPath = '/Ecommerce/';
 }
