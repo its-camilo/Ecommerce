@@ -56,9 +56,21 @@ jobs:
         sed -i 's|="/_expo/|="/Ecommerce/_expo/|g' index.html
         sed -i 's|src="/_expo/|src="/Ecommerce/_expo/|g' index.html
         sed -i 's|href="/_expo/|href="/Ecommerce/_expo/|g' index.html
-        # También corregir referencias en archivos JS si existen
+
+        # Corregir rutas de assets (imágenes, fuentes, etc.)
+        sed -i 's|="/assets/|="/Ecommerce/assets/|g' index.html
+        sed -i 's|src="/assets/|src="/Ecommerce/assets/|g' index.html
+        sed -i 's|href="/assets/|href="/Ecommerce/assets/|g' index.html
+
+        # También corregir referencias en archivos JS
         find . -name "*.js" -type f -exec sed -i 's|"/_expo/|"/Ecommerce/_expo/|g' {} \;
         find . -name "*.js" -type f -exec sed -i "s|'/_expo/|'/Ecommerce/_expo/|g" {} \;
+        find . -name "*.js" -type f -exec sed -i 's|"/assets/|"/Ecommerce/assets/|g' {} \;
+        find . -name "*.js" -type f -exec sed -i "s|'/assets/|'/Ecommerce/assets/|g" {} \;
+
+        # Corregir referencias en archivos CSS si existen
+        find . -name "*.css" -type f -exec sed -i 's|url(/assets/|url(/Ecommerce/assets/|g' {} \;
+        find . -name "*.css" -type f -exec sed -i 's|url("\/assets/|url("/Ecommerce/assets/|g' {} \;
 
     - name: Setup Pages
       uses: actions/configure-pages@v4

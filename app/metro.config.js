@@ -6,4 +6,9 @@ const config = getDefaultConfig(__dirname);
 config.resolver.platforms = ['ios', 'android', 'native', 'web'];
 config.resolver.assetExts.push('db');
 
+// Configuración específica para web y GitHub Pages
+if (process.env.NODE_ENV === 'production') {
+  config.transformer.publicPath = '/Ecommerce/';
+}
+
 module.exports = config;
