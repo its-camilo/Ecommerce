@@ -62,6 +62,10 @@ jobs:
         sed -i 's|src="/assets/|src="/Ecommerce/assets/|g' index.html
         sed -i 's|href="/assets/|href="/Ecommerce/assets/|g' index.html
 
+        # Corregir favicon específicamente
+        sed -i 's|rel="icon" href="[^"]*"|rel="icon" href="/Ecommerce/assets/assets/images/icon.png"|g' index.html
+        sed -i 's|rel="shortcut icon" href="[^"]*"|rel="shortcut icon" href="/Ecommerce/assets/assets/images/icon.png"|g' index.html
+
         # También corregir referencias en archivos JS
         find . -name "*.js" -type f -exec sed -i 's|"/_expo/|"/Ecommerce/_expo/|g' {} \;
         find . -name "*.js" -type f -exec sed -i "s|'/_expo/|'/Ecommerce/_expo/|g" {} \;
@@ -75,26 +79,21 @@ jobs:
     - name: Setup SPA routing for GitHub Pages
       run: |
         cd app/dist
-        # Crear 404.html que redirige a index.html para SPA routing
+        # Agregar base tag al index.html para routing correcto
+        sed -i 's|<head>|<head><base href="/Ecommerce/">|g' index.html
+
+        # Crear 404.html para SPA routing
         cp index.html 404.html
-        # Crear directorio Ecommerce si no existe y copiar archivos allí
-        mkdir -p Ecommerce
-        cp -r * Ecommerce/ 2>/dev/null || true
-        # El index.html principal debe estar en la raíz para GitHub Pages
-        echo '<!DOCTYPE html>
-        <html>
-        <head>
-            <meta charset="utf-8">
-            <title>Redirecting...</title>
-            <script>
-                window.location.href = "/Ecommerce/";
-            </script>
-            <meta http-equiv="refresh" content="0; url=/Ecommerce/">
-        </head>
-        <body>
-            <p>Redirecting to <a href="/Ecommerce/">Ecommerce App</a>...</p>
-        </body>
-        </html>' > index.html
+
+        # Agregar script de routing fix al final del body
+        sed -i 's|</body>|<script>
+          // Fix routing for GitHub Pages
+          if (window.location.pathname.startsWith("/Ecommerce") && !window.location.pathname.endsWith("/")) {
+            if (window.location.pathname === "/Ecommerce") {
+              window.history.replaceState(null, "", "/Ecommerce/");
+            }
+          }
+        </script></body>|g' index.html
 
     - name: Setup Pages
       uses: actions/configure-pages@v4
