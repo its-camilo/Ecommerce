@@ -29,10 +29,16 @@ function patchHtmlFiles() {
     const full = path.join(distDir, file);
     let html = fs.readFileSync(full, 'utf8');
     // Replace href="/favicon.ico" with href="./favicon.png" preserving other attributes
-    html = html.replace(/href=("|')\/favicon\.ico("|')/g, 'href="./favicon.png"');
+    html = html.replace(
+      /href=("|')\/favicon\.ico("|')/g,
+      'href="./favicon.png"'
+    );
     // Also add <link rel="icon" type="image/png" ...> if not present
     if (!/favicon\.png/.test(html)) {
-      html = html.replace(/<head>/i, '<head>\n    <link rel="icon" type="image/png" href="./favicon.png" />');
+      html = html.replace(
+        /<head>/i,
+        '<head>\n    <link rel="icon" type="image/png" href="./favicon.png" />'
+      );
     }
     fs.writeFileSync(full, html, 'utf8');
   });
