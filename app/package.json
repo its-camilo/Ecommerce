@@ -9,7 +9,7 @@
     "android": "expo run:android",
     "ios": "expo run:ios",
     "web": "expo start --web",
-    "build:web": "expo export --platform web",
+    "build:web": "expo export --platform web --public-url https://its-camilo.github.io/Ecommerce && node ./scripts/fix-favicon.js",
     "serve:web": "npx serve dist -s",
     "deploy": "npm run build:web && npx gh-pages -d dist",
     "test": "jest --watchAll",
