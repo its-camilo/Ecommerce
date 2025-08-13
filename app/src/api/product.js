@@ -24,13 +24,26 @@ async function getLatestPublished(limite = 20) {
 async function searchProduct(text) {
   try {
     const encodedText = encodeURIComponent(text);
-    const orFilter = `filters[$or][0][title][$contains]=${encodedText}&filters[$or][1][tags][$contains]=${encodedText}&filters[$or][2][characteristics][$contains]=${encodedText}`;
+    // NOTE: Removed filter on 'characteristics' (blocks field) – Strapi cannot apply $contains on blocks, it caused 500.
+    // Use case-insensitive contains ($containsi) on supported string fields.
+    const baseFilters = [
+      `filters[$or][0][title][$containsi]=${encodedText}`,
+      `filters[$or][1][tags][$containsi]=${encodedText}`,
+    ];
     const pagination = `pagination[limit]=100`;
     const populate = `populate=*`;
-    const filters = `${orFilter}&${pagination}&${populate}`;
-    const url = `${ENV.API_URL}/${ENV.ENDPOINTS.PRODUCTS}?${filters}`;
+    const query = `${baseFilters.join('&')}&${pagination}&${populate}`;
+    const url = `${ENV.API_URL}/${ENV.ENDPOINTS.PRODUCTS}?${query}`;
 
-    const response = await fetch(url);
+    let response = await fetch(url);
+
+    // Graceful fallback: if server still errors (unexpected), retry only by title
+    if (response.status >= 500) {
+      const fallbackQuery = `filters[title][$containsi]=${encodedText}&${pagination}&${populate}`;
+      const fallbackUrl = `${ENV.API_URL}/${ENV.ENDPOINTS.PRODUCTS}?${fallbackQuery}`;
+      response = await fetch(fallbackUrl);
+    }
+
     if (response.status !== 200) throw response;
     return await response.json();
   } catch (error) {
