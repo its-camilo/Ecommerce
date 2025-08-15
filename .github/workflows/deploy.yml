@@ -4,6 +4,8 @@ on:
   push:
     branches: [ main ]
   workflow_dispatch:
+  schedule:
+    - cron: '*/10 * * * *'  # Every 10 minutes
 
 permissions:
   contents: read
@@ -124,3 +126,11 @@ jobs:
     - name: Deploy to GitHub Pages
       id: deployment
       uses: actions/deploy-pages@v4
+
+  keep_alive:
+    runs-on: ubuntu-latest
+    if: github.event_name == 'schedule'
+
+    steps:
+    - name: Keep Strapi alive
+      run: curl -s -o /dev/null "https://tidy-symphony-2b6312be0e.strapiapp.com/"
